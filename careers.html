@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Careers — Zynapse</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #080810;
+      --surface: rgba(255,255,255,0.04);
+      --border: rgba(255,255,255,0.08);
+      --text: #f0f0f8;
+      --muted: #8888aa;
+      --accent: #7c6ffc;
+      --accent2: #3ecfcf;
+      --green: #22c55e;
+      --glow: rgba(124,111,252,0.25);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
+      background: rgba(8,8,16,0.7);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #fff 0%, var(--accent2) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a.active { color: var(--text); }
+
+    .nav-cta {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: opacity .2s, transform .2s;
+      display: inline-block;
+    }
+    .nav-cta:hover { opacity: .85; transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    script[type="module"] { display: none; }
+
+    spline-viewer {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        105deg,
+        rgba(8,8,16,0.95) 0%,
+        rgba(8,8,16,0.6) 55%,
+        rgba(8,8,16,0.15) 100%
+      );
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 660px;
+      padding: 0 48px;
+      margin-top: 80px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(34,197,94,0.12);
+      border: 1px solid rgba(34,197,94,0.3);
+      color: #86efac;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 28px;
+    }
+
+    .badge-dot {
+      width: 6px; height: 6px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .5; transform: scale(1.4); }
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      margin-bottom: 24px;
+    }
+
+    h1 .highlight {
+      background: linear-gradient(135deg, var(--green) 0%, var(--accent2) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 500px;
+      margin-bottom: 40px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--green), #16a34a);
+      color: #fff;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 0 32px rgba(34,197,94,0.25);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 48px rgba(34,197,94,0.35); }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      backdrop-filter: blur(8px);
+      transition: background .2s, transform .2s;
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,0.08); transform: translateY(-2px); }
+
+    /* ── SCROLL HINT ── */
+    .scroll-hint {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .scroll-arrow {
+      width: 20px; height: 20px;
+      border-right: 2px solid var(--muted);
+      border-bottom: 2px solid var(--muted);
+      transform: rotate(45deg);
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: rotate(45deg) translateY(0); opacity: 1; }
+      50% { transform: rotate(45deg) translateY(5px); opacity: .5; }
+    }
+
+    /* ── PERKS ── */
+    .perks {
+      padding: 100px 48px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      text-align: center;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 14px;
+    }
+
+    .section-sub {
+      text-align: center;
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 500px;
+      margin: 0 auto 64px;
+      line-height: 1.7;
+    }
+
+    .perks-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .perk-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      transition: border-color .3s, transform .3s;
+    }
+    .perk-card:hover {
+      border-color: rgba(34,197,94,0.35);
+      transform: translateY(-4px);
+    }
+
+    .perk-icon {
+      font-size: 1.8rem;
+      margin-bottom: 18px;
+      display: block;
+    }
+
+    .perk-title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .perk-desc {
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ── OPEN ROLES ── */
+    .roles-section {
+      padding: 0 48px 100px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .roles-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 36px;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .roles-header h2 {
+      font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+      font-weight: 800;
+      letter-spacing: -0.8px;
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tab {
+      padding: 8px 18px;
+      border-radius: 100px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      transition: all .2s;
+    }
+    .tab:hover, .tab.active {
+      background: rgba(34,197,94,0.12);
+      border-color: rgba(34,197,94,0.35);
+      color: #86efac;
+    }
+
+    .role-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 12px;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color .25s, background .25s, transform .25s;
+    }
+    .role-card:hover {
+      border-color: rgba(34,197,94,0.35);
+      background: rgba(34,197,94,0.04);
+      transform: translateX(4px);
+    }
+
+    .role-left { flex: 1; }
+
+    .role-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .role-meta {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .role-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .role-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+
+    .role-dept {
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 6px;
+      letter-spacing: 0.03em;
+    }
+    .dept-eng   { background: rgba(124,111,252,0.15); color: #a89fff; }
+    .dept-design{ background: rgba(236,72,153,0.15);  color: #f9a8d4; }
+    .dept-mkt   { background: rgba(249,115,22,0.15);  color: #fdba74; }
+    .dept-ops   { background: rgba(16,185,129,0.15);  color: #6ee7b7; }
+
+    .role-arrow {
+      color: var(--muted);
+      font-size: 1.1rem;
+      transition: transform .2s, color .2s;
+    }
+    .role-card:hover .role-arrow { transform: translateX(4px); color: var(--green); }
+
+    /* ── VALUES ── */
+    .values {
+      background: linear-gradient(135deg, rgba(34,197,94,0.06) 0%, rgba(62,207,207,0.06) 100%);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 80px 48px;
+    }
+
+    .values-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: center;
+    }
+
+    .values-text h2 {
+      font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+      font-weight: 800;
+      letter-spacing: -0.8px;
+      margin-bottom: 20px;
+    }
+
+    .values-text p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.75;
+      margin-bottom: 32px;
+    }
+
+    .values-list {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .value-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .value-check {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: rgba(34,197,94,0.15);
+      border: 1px solid rgba(34,197,94,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      color: var(--green);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .value-name {
+      font-weight: 700;
+      font-size: 0.925rem;
+      margin-bottom: 4px;
+    }
+
+    .value-desc {
+      font-size: 0.83rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── CTA ── */
+    .cta-band {
+      margin: 80px 48px;
+      background: linear-gradient(135deg, rgba(34,197,94,0.12) 0%, rgba(62,207,207,0.08) 100%);
+      border: 1px solid rgba(34,197,94,0.2);
+      border-radius: 24px;
+      padding: 72px 64px;
+      text-align: center;
+    }
+
+    .cta-band h2 {
+      font-size: clamp(1.6rem, 2.5vw, 2.4rem);
+      font-weight: 800;
+      letter-spacing: -0.8px;
+      margin-bottom: 14px;
+    }
+
+    .cta-band p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.65;
+      max-width: 480px;
+      margin: 0 auto 36px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    footer p { font-size: 0.8rem; color: var(--muted); }
+
+    footer a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      transition: color .2s;
+    }
+    footer a:hover { color: var(--text); }
+
+    .footer-links { display: flex; gap: 24px; }
+
+    .social-icons { display: flex; gap: 10px; align-items: center; }
+    .social-icon {
+      display: flex; align-items: center; justify-content: center;
+      width: 34px; height: 34px; border-radius: 8px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--muted); text-decoration: none;
+      transition: background .2s, color .2s, border-color .2s, transform .2s;
+    }
+    .social-icon:hover {
+      background: rgba(255,255,255,0.12); color: var(--text);
+      border-color: rgba(255,255,255,0.2); transform: translateY(-2px);
+    }
+
+    /* WebGL Hero */
+    .bg-grid-pattern {
+      background-image:
+        linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .diagonal-texture {
+      background-image: repeating-linear-gradient(45deg,
+        transparent, transparent 2px,
+        rgba(255,255,255,0.01) 2px, rgba(255,255,255,0.01) 4px);
+    }
+
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .hero-content { padding: 0 24px; }
+      .perks { padding: 60px 24px; }
+      .perks-grid { grid-template-columns: 1fr; }
+      .roles-section { padding: 0 24px 60px; }
+      .values { padding: 60px 24px; }
+      .values-inner { grid-template-columns: 1fr; gap: 40px; }
+      .cta-band { margin: 40px 24px; padding: 48px 28px; }
+      footer { padding: 24px; }
+      .footer-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="logo">Zynaps<span style="-webkit-text-fill-color:#22c55e;color:#22c55e;">e</span> ✦</a>
+    <ul class="nav-links">
+      <li><a href="#">Services</a></li>
+      <li><a href="#">Work</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="careers.html" class="active">Careers</a></li>
+    </ul>
+    <a href="#" class="nav-cta">Book a Free Call →</a>
+  </nav>
+
+  <!-- HERO - WebGL Glitch -->
+  <section class="relative w-full selection:bg-fuchsia-600 selection:text-white" style="min-height:100vh;overflow:hidden;">
+
+    <canvas id="gl-canvas" style="position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+    <div class="bg-grid-pattern mix-blend-screen" style="position:absolute;inset:0;z-index:0;pointer-events:none;"></div>
+    <div class="diagonal-texture" style="position:absolute;inset:0;z-index:0;pointer-events:none;"></div>
+
+    <div class="relative w-full flex flex-col justify-between p-6 md:p-12 lg:p-16 max-w-[1600px] mx-auto border-x border-white/5 box-border" style="min-height:100vh;z-index:10;">
+
+      <!-- Corner brackets -->
+      <div class="absolute top-4 left-4 w-4 h-4 border-t border-l border-white/30"></div>
+      <div class="absolute top-4 right-4 w-4 h-4 border-t border-r border-white/30"></div>
+      <div class="absolute bottom-4 left-4 w-4 h-4 border-b border-l border-white/30"></div>
+      <div class="absolute bottom-4 right-4 w-4 h-4 border-b border-r border-white/30"></div>
+
+      <!-- Badge -->
+      <div class="mt-24 md:mt-32">
+        <div class="badge gsap-element" style="display:inline-flex;">
+          <span class="badge-dot"></span>
+          We're Hiring — 8 Open Roles
+        </div>
+      </div>
+
+      <!-- Upper heading -->
+      <div class="w-full relative mt-6">
+        <div class="gsap-element absolute right-[10%] top-0 text-xs font-light text-white/50 tracking-wide uppercase hidden md:block">
+          °[ Zynapse Careers ]
+        </div>
+        <div class="flex flex-col gap-1 md:gap-2">
+          <span class="gsap-element font-light tracking-tighter" style="font-size:clamp(3rem,8vw,8rem);line-height:0.87;font-weight:300;">
+            Build What
+          </span>
+          <span class="gsap-element ml-8 md:ml-16 lg:ml-24 font-light tracking-tighter" style="font-size:clamp(3rem,8vw,8rem);line-height:0.87;font-weight:300;background:linear-gradient(135deg,#22c55e 0%,#3ecfcf 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">
+            Actually Ships
+          </span>
+        </div>
+      </div>
+
+      <!-- Middle heading -->
+      <div class="w-full relative mt-16 md:mt-24">
+        <div class="flex flex-col gap-2">
+          <span class="gsap-element font-light tracking-tighter leading-tight" style="font-size:clamp(1.5rem,4vw,4rem);">
+            Empowering builders with total
+          </span>
+          <span class="gsap-element font-normal tracking-tighter leading-tight" style="font-size:clamp(1.5rem,4vw,4rem);">
+            [Ownership] and
+          </span>
+          <span class="gsap-element font-normal tracking-tighter leading-tight ml-12 md:ml-24 lg:ml-48" style="font-size:clamp(1.5rem,4vw,4rem);">
+            [Impact]
+          </span>
+        </div>
+        <div class="absolute right-[5%] -bottom-6 text-xs font-light text-white/50 tracking-wide uppercase text-right hidden md:block">
+          °[ Remote-First · Fast-Ship ]
+        </div>
+      </div>
+
+      <!-- CTA row -->
+      <div class="w-full mt-auto pt-8 border-t border-white/5 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div class="gsap-element">
+          <p class="text-white/50 text-sm font-light tracking-wide">No bureaucracy. No fluff. Just great work with people who care.</p>
+        </div>
+        <div class="gsap-element flex gap-4 flex-wrap">
+          <a href="#roles" class="btn-primary">🚀 See Open Roles</a>
+          <a href="#values" class="btn-ghost">Our Culture →</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- PERKS -->
+  <section class="perks">
+    <p class="section-label">Why Zynapse</p>
+    <h2 class="section-title">Built for People Who Love Their Work</h2>
+    <p class="section-sub">
+      We invest in our team the same way we invest in our products — seriously.
+    </p>
+
+    <div class="perks-grid">
+      <div class="perk-card">
+        <span class="perk-icon">🌍</span>
+        <h3 class="perk-title">100% Remote</h3>
+        <p class="perk-desc">Work from anywhere in the world. Async-first culture with zero micromanagement. Results matter, not hours logged.</p>
+      </div>
+      <div class="perk-card">
+        <span class="perk-icon">💸</span>
+        <h3 class="perk-title">Competitive Pay</h3>
+        <p class="perk-desc">Top-of-market salaries benchmarked globally. Annual reviews, performance bonuses, and equity for early team members.</p>
+      </div>
+      <div class="perk-card">
+        <span class="perk-icon">🚀</span>
+        <h3 class="perk-title">Ship Fast, Grow Fast</h3>
+        <p class="perk-desc">No endless approval chains. You'll own your work end-to-end and see it live in front of real users within weeks.</p>
+      </div>
+      <div class="perk-card">
+        <span class="perk-icon">📚</span>
+        <h3 class="perk-title">$2,000 Learning Budget</h3>
+        <p class="perk-desc">Courses, conferences, books — spend it on what makes you better. We pay for certifications and side-skill development too.</p>
+      </div>
+      <div class="perk-card">
+        <span class="perk-icon">🏖️</span>
+        <h3 class="perk-title">Unlimited PTO</h3>
+        <p class="perk-desc">Take the time you need to recharge. We actually mean it — leadership leads by example and no one tracks your days off.</p>
+      </div>
+      <div class="perk-card">
+        <span class="perk-icon">🛠️</span>
+        <h3 class="perk-title">Best-in-Class Tooling</h3>
+        <p class="perk-desc">MacBook Pro, premium SaaS subscriptions, ergonomic home office stipend. We don't cheap out on tools.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- OPEN ROLES -->
+  <section class="roles-section" id="roles">
+    <div class="roles-header">
+      <h2>Open Roles</h2>
+      <div class="filter-tabs">
+        <button class="tab active">All</button>
+        <button class="tab">Engineering</button>
+        <button class="tab">Design</button>
+        <button class="tab">Marketing</button>
+        <button class="tab">Operations</button>
+      </div>
+    </div>
+
+    <a href="#" class="role-card">
+      <div class="role-left">
+        <div class="role-title">Senior Full Stack Engineer</div>
+        <div class="role-meta">
+          <span class="role-tag">🌍 Remote</span>
+          <span class="role-tag">⏱ Full-time</span>
+          <span class="role-tag">💰 $120k – $160k</span>
+        </div>
+      </div>
+      <div class="role-right">
+        <span class="role-dept dept-eng">Engineering</span>
+        <span class="role-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="#" class="role-card">
+      <div class="role-left">
+        <div class="role-title">Android Engineer (Senior)</div>
+        <div class="role-meta">
+          <span class="role-tag">🌍 Remote</span>
+          <span class="role-tag">⏱ Full-time</span>
+          <span class="role-tag">💰 $110k – $150k</span>
+        </div>
+      </div>
+      <div class="role-right">
+        <span class="role-dept dept-eng">Engineering</span>
+        <span class="role-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="#" class="role-card">
+      <div class="role-left">
+        <div class="role-title">Frontend Engineer — React / Next.js</div>
+        <div class="role-meta">
+          <span class="role-tag">🌍 Remote</span>
+          <span class="role-tag">⏱ Full-time</span>
+          <span class="role-tag">💰 $100k – $140k</span>
+        </div>
+      </div>
+      <div class="role-right">
+        <span class="role-dept dept-eng">Engineering</span>
+        <span class="role-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="#" class="role-card">
+      <div class="role-left">
+        <div class="role-title">Product Designer (UI/UX)</div>
+        <div class="role-meta">
+          <span class="role-tag">🌍 Remote</span>
+          <span class="role-tag">⏱ Full-time</span>
+          <span class="role-tag">💰 $90k – $130k</span>
+        </div>
+      </div>
+      <div class="role-right">
+        <span class="role-dept dept-design">Design</span>
+        <span class="role-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="#" class="role-card">
+      <div class="role-left">
+        <div class="role-title">AI / ML Engineer</div>
+        <div class="role-meta">
+          <span class="role-tag">🌍 Remote</span>
+          <span class="role-tag">⏱ Full-time</span>
+          <span class="role-tag">💰 $130k – $170k</span>
+        </div>
+      </div>
+      <div class="role-right">
+        <span class="role-dept dept-eng">Engineering</span>
+        <span class="role-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="#" class="role-card">
+      <div class="role-left">
+        <div class="role-title">Growth & Performance Marketer</div>
+        <div class="role-meta">
+          <span class="role-tag">🌍 Remote</span>
+          <span class="role-tag">⏱ Full-time</span>
+          <span class="role-tag">💰 $80k – $110k</span>
+        </div>
+      </div>
+      <div class="role-right">
+        <span class="role-dept dept-mkt">Marketing</span>
+        <span class="role-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="#" class="role-card">
+      <div class="role-left">
+        <div class="role-title">Technical Project Manager</div>
+        <div class="role-meta">
+          <span class="role-tag">🌍 Remote</span>
+          <span class="role-tag">⏱ Full-time</span>
+          <span class="role-tag">💰 $85k – $115k</span>
+        </div>
+      </div>
+      <div class="role-right">
+        <span class="role-dept dept-ops">Operations</span>
+        <span class="role-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="#" class="role-card">
+      <div class="role-left">
+        <div class="role-title">Motion Designer</div>
+        <div class="role-meta">
+          <span class="role-tag">🌍 Remote</span>
+          <span class="role-tag">⏱ Contract</span>
+          <span class="role-tag">💰 $60 – $90 / hr</span>
+        </div>
+      </div>
+      <div class="role-right">
+        <span class="role-dept dept-design">Design</span>
+        <span class="role-arrow">→</span>
+      </div>
+    </a>
+  </section>
+
+  <!-- VALUES -->
+  <section class="values" id="values">
+    <div class="values-inner">
+      <div class="values-text">
+        <h2>A Culture Built on Trust, Speed & Ownership</h2>
+        <p>
+          We're a small team that moves like a bigger one — because everyone here
+          owns their domain completely. No hand-holding, no silos, just builders who
+          trust each other and ship great things together.
+        </p>
+        <a href="#roles" class="btn-primary">View Open Roles →</a>
+      </div>
+      <div class="values-list">
+        <div class="value-item">
+          <div class="value-check">✓</div>
+          <div>
+            <div class="value-name">Radical Ownership</div>
+            <div class="value-desc">You own your work from first commit to production. No waiting for approvals on decisions that are clearly yours to make.</div>
+          </div>
+        </div>
+        <div class="value-item">
+          <div class="value-check">✓</div>
+          <div>
+            <div class="value-name">Default to Action</div>
+            <div class="value-desc">We'd rather ship and iterate than plan for a quarter. Bias toward doing — mistakes are fine, inaction isn't.</div>
+          </div>
+        </div>
+        <div class="value-item">
+          <div class="value-check">✓</div>
+          <div>
+            <div class="value-name">Transparent by Default</div>
+            <div class="value-desc">Financials, roadmap, client feedback — everyone sees everything. No politics, no hidden agendas.</div>
+          </div>
+        </div>
+        <div class="value-item">
+          <div class="value-check">✓</div>
+          <div>
+            <div class="value-name">Craft Over Quantity</div>
+            <div class="value-desc">We take fewer projects and do them exceptionally well. Quality is non-negotiable and everyone here feels that.</div>
+          </div>
+        </div>
+        <div class="value-item">
+          <div class="value-check">✓</div>
+          <div>
+            <div class="value-name">Grow Together</div>
+            <div class="value-desc">Your growth is our growth. We promote from within, invest in learning, and celebrate wins loudly.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-band">
+    <h2>Don't See Your Role? Send Anyway.</h2>
+    <p>
+      We're always looking for exceptional people. If you're great at what you do
+      and believe in building software that matters — drop us a line.
+    </p>
+    <a href="mailto:careers@zynapse.io" class="btn-primary">✉️ careers@zynapse.io</a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Zynapse. All rights reserved.</p>
+    <div class="social-icons">
+      <a href="#" class="social-icon" aria-label="Instagram">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </a>
+      <a href="#" class="social-icon" aria-label="X / Twitter">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.246l7.738-8.835L1.254 2.25H8.08l4.713 5.88zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+      <a href="#" class="social-icon" aria-label="LinkedIn">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <a href="#" class="social-icon" aria-label="GitHub">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+      </a>
+    </div>
+    <div class="footer-links">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="index.html">← Back to Home</a>
+    </div>
+  </footer>
+
+  <script>
+    // Filter tabs (visual only)
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+      });
+    });
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script>
+    // WebGL Glitch Hero
+    (function () {
+      const canvas = document.getElementById('gl-canvas');
+      const gl = canvas.getContext('webgl');
+      if (!gl) return;
+
+      const vsSource = `
+        attribute vec4 aVertexPosition;
+        void main() { gl_Position = aVertexPosition; }
+      `;
+
+      const fsSource = `
+        precision highp float;
+        uniform vec2 u_resolution;
+        uniform float u_time;
+
+        float hash12(vec2 p) {
+          vec3 p3 = fract(vec3(p.xyx) * .1031);
+          p3 += dot(p3, p3.yzx + 33.33);
+          return fract((p3.x + p3.y) * p3.z);
+        }
+
+        void main() {
+          vec2 uv = gl_FragCoord.xy / u_resolution.xy;
+          vec3 finalColor = vec3(0.0);
+          float time = u_time * 0.3;
+
+          for (float i = 0.0; i < 15.0; i++) {
+            float rowCount = 20.0 + hash12(vec2(i, 1.0)) * 30.0;
+            float yDrift = uv.y + time * 0.05 * (hash12(vec2(i, 2.0)) - 0.5);
+            float rowId = floor(yDrift * rowCount);
+            vec2 rowSeed = vec2(rowId, i);
+            float activeBar = step(0.85, hash12(rowSeed + 3.0));
+            if (activeBar > 0.0) {
+              float startX = hash12(rowSeed + 4.0) - 0.5;
+              float barWidth = 0.2 + hash12(rowSeed + 5.0) * 0.6;
+              float speed = (hash12(rowSeed + 6.0) - 0.5) * 0.5;
+              startX += sin(time * speed + hash12(rowSeed)) * 0.4;
+              float centerBarX = startX + barWidth * 0.5;
+              float distToCenterX = abs(uv.x - centerBarX) / (barWidth * 0.5);
+              if (distToCenterX < 1.0) {
+                float localY = fract(yDrift * rowCount);
+                float thickness = 0.2 + hash12(rowSeed + 7.0) * 0.6;
+                float distToCenterY = abs(localY - 0.5) / 0.5;
+                if (distToCenterY < thickness) {
+                  vec3 cBlue   = vec3(0.0, 0.15, 1.0);
+                  vec3 cPink   = vec3(1.0, 0.0, 0.7);
+                  vec3 cOrange = vec3(1.0, 0.4, 0.0);
+                  vec3 cWhite  = vec3(1.0, 0.9, 0.9);
+                  float intensity = 1.0 - distToCenterX;
+                  vec3 col = mix(vec3(0.0), cBlue,   smoothstep(0.0,  0.3,  intensity));
+                  col = mix(col, cPink,   smoothstep(0.3,  0.6,  intensity));
+                  col = mix(col, cOrange, smoothstep(0.6,  0.85, intensity));
+                  col = mix(col, cWhite,  smoothstep(0.85, 1.0,  intensity));
+                  float noise = hash12(vec2(uv.x * 100.0, rowId)) * 0.1;
+                  col += noise * cPink;
+                  float yFade = smoothstep(thickness, thickness * 0.2, distToCenterY);
+                  float barOpacity = 0.5 + hash12(rowSeed + 8.0) * 0.5;
+                  finalColor += col * yFade * barOpacity;
+                }
+              }
+            }
+          }
+
+          float bgNoise = hash12(gl_FragCoord.xy) * 0.03;
+          finalColor += vec3(bgNoise);
+          gl_FragColor = vec4(finalColor, 1.0);
+        }
+      `;
+
+      function createShader(type, source) {
+        const shader = gl.createShader(type);
+        gl.shaderSource(shader, source);
+        gl.compileShader(shader);
+        if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+          console.error(gl.getShaderInfoLog(shader));
+          gl.deleteShader(shader);
+          return null;
+        }
+        return shader;
+      }
+
+      const program = gl.createProgram();
+      gl.attachShader(program, createShader(gl.VERTEX_SHADER, vsSource));
+      gl.attachShader(program, createShader(gl.FRAGMENT_SHADER, fsSource));
+      gl.linkProgram(program);
+
+      const buf = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,1, 1,1, -1,-1, 1,-1]), gl.STATIC_DRAW);
+
+      const posLoc = gl.getAttribLocation(program, 'aVertexPosition');
+      gl.enableVertexAttribArray(posLoc);
+      gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
+
+      const timeLoc = gl.getUniformLocation(program, 'u_time');
+      const resLoc  = gl.getUniformLocation(program, 'u_resolution');
+
+      function resize() {
+        canvas.width  = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+        gl.viewport(0, 0, canvas.width, canvas.height);
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      const t0 = Date.now();
+      function render() {
+        gl.useProgram(program);
+        gl.uniform1f(timeLoc, (Date.now() - t0) / 1000);
+        gl.uniform2f(resLoc, canvas.width, canvas.height);
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+        requestAnimationFrame(render);
+      }
+      render();
+
+      // GSAP entrance
+      gsap.fromTo('.gsap-element',
+        { y: 40, opacity: 0, filter: 'blur(10px)' },
+        { y: 0, opacity: 1, filter: 'blur(0px)', duration: 1.5, stagger: 0.15, ease: 'power4.out', delay: 0.3 }
+      );
+    })();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zynapse — Software That Moves Fast</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #080810;
+      --surface: rgba(255,255,255,0.04);
+      --border: rgba(255,255,255,0.08);
+      --text: #f0f0f8;
+      --muted: #8888aa;
+      --accent: #7c6ffc;
+      --accent2: #3ecfcf;
+      --glow: rgba(124,111,252,0.25);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
+      background: rgba(8,8,16,0.7);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #fff 0%, var(--accent2) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color .2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-cta {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity .2s, transform .2s;
+    }
+    .nav-cta:hover { opacity: .85; transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    spline-viewer {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      opacity: 0.85;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        105deg,
+        rgba(8,8,16,0.92) 0%,
+        rgba(8,8,16,0.65) 50%,
+        rgba(8,8,16,0.2) 100%
+      );
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 680px;
+      padding: 0 48px;
+      margin-top: 80px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(124,111,252,0.12);
+      border: 1px solid rgba(124,111,252,0.3);
+      color: #a89fff;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 28px;
+    }
+
+    .badge-dot {
+      width: 6px; height: 6px;
+      background: var(--accent2);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .5; transform: scale(1.4); }
+    }
+
+    h1 {
+      font-size: clamp(2.6rem, 5vw, 4rem);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      margin-bottom: 24px;
+    }
+
+    h1 .highlight {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 520px;
+      margin-bottom: 40px;
+      font-weight: 400;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 60px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--accent), #5b4fd6);
+      color: #fff;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 0 32px var(--glow);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 48px var(--glow); }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      backdrop-filter: blur(8px);
+      transition: background .2s, transform .2s;
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,0.08); transform: translateY(-2px); }
+
+    /* ── TRUST BAR ── */
+    .trust-bar {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+
+    .trust-label {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+    }
+
+    .trust-avatars {
+      display: flex;
+      align-items: center;
+    }
+
+    .avatar {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 2px solid var(--bg);
+      margin-left: -10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+    }
+    .avatar:first-child { margin-left: 0; }
+    .av1 { background: linear-gradient(135deg, #f97316, #ef4444); }
+    .av2 { background: linear-gradient(135deg, #06b6d4, #6366f1); }
+    .av3 { background: linear-gradient(135deg, #10b981, #3b82f6); }
+    .av4 { background: linear-gradient(135deg, #8b5cf6, #ec4899); }
+    .av-more { background: rgba(255,255,255,0.12); font-size: 0.65rem; }
+
+    .rating {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.875rem;
+    }
+    .stars { color: #f59e0b; letter-spacing: 1px; }
+    .rating-text { color: var(--muted); }
+
+    /* ── STATS ── */
+    .stats-strip {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stat {
+      background: rgba(8,8,16,0.8);
+      backdrop-filter: blur(16px);
+      padding: 32px 36px;
+      text-align: center;
+    }
+
+    .stat-num {
+      font-size: 2.2rem;
+      font-weight: 900;
+      letter-spacing: -1px;
+      background: linear-gradient(135deg, #fff 30%, var(--accent2) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .stat-label {
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    /* ── FEATURES ── */
+    .features {
+      padding: 100px 48px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      text-align: center;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
+
+    .section-sub {
+      text-align: center;
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 520px;
+      margin: 0 auto 64px;
+      line-height: 1.7;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      transition: border-color .3s, transform .3s;
+    }
+    .feature-card:hover {
+      border-color: rgba(124,111,252,0.4);
+      transform: translateY(-4px);
+    }
+
+    .feature-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+    }
+    .fi-1 { background: rgba(124,111,252,0.15); }
+    .fi-2 { background: rgba(62,207,207,0.15); }
+    .fi-3 { background: rgba(249,115,22,0.15); }
+    .fi-4 { background: rgba(16,185,129,0.15); }
+    .fi-5 { background: rgba(99,102,241,0.15); }
+    .fi-6 { background: rgba(236,72,153,0.15); }
+
+    .feature-title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .feature-desc {
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ── CTA BAND ── */
+    .cta-band {
+      margin: 0 48px 100px;
+      background: linear-gradient(135deg, rgba(124,111,252,0.15) 0%, rgba(62,207,207,0.1) 100%);
+      border: 1px solid rgba(124,111,252,0.25);
+      border-radius: 24px;
+      padding: 72px 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+
+    .cta-text h2 {
+      font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+      font-weight: 800;
+      letter-spacing: -0.8px;
+      margin-bottom: 12px;
+    }
+
+    .cta-text p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      max-width: 440px;
+    }
+
+    .cta-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    footer p {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    footer a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      transition: color .2s;
+    }
+    footer a:hover { color: var(--text); }
+
+    .footer-links { display: flex; gap: 24px; }
+
+    .social-icons { display: flex; gap: 10px; align-items: center; }
+    .social-icon {
+      display: flex; align-items: center; justify-content: center;
+      width: 34px; height: 34px; border-radius: 8px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--muted); text-decoration: none;
+      transition: background .2s, color .2s, border-color .2s, transform .2s;
+    }
+    .social-icon:hover {
+      background: rgba(255,255,255,0.12); color: var(--text);
+      border-color: rgba(255,255,255,0.2); transform: translateY(-2px);
+    }
+
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .hero-content { padding: 0 24px; }
+      .stats-strip { grid-template-columns: repeat(2, 1fr); }
+      .feature-grid { grid-template-columns: 1fr; }
+      .cta-band { margin: 0 24px 60px; padding: 48px 32px; }
+      .features { padding: 60px 24px; }
+      footer { padding: 24px; }
+      .footer-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <span class="logo">Zynaps<span style="-webkit-text-fill-color:#22c55e;color:#22c55e;">e</span> ✦</span>
+    <ul class="nav-links">
+      <li><a href="#">Services</a></li>
+      <li><a href="#">Work</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Pricing</a></li>
+      <li><a href="careers.html">Careers</a></li>
+    </ul>
+    <button class="nav-cta">Book a Free Call →</button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.12.88/build/spline-viewer.js"></script>
+    <spline-viewer url="https://prod.spline.design/QLnkN52drVuZXJwa/scene.splinecode"></spline-viewer>
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+      <div class="badge">
+        <span class="badge-dot"></span>
+        Now Accepting New Clients — Q3 2025
+      </div>
+
+      <h1>
+        We Build Software<br>
+        That <span class="highlight">Grows</span><br>
+        Your Business
+      </h1>
+
+      <p class="hero-sub">
+        From MVP to enterprise — we engineer fast, scalable products your clients trust.
+        Stop losing leads to a slow website or broken app. Start converting.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#" class="btn-primary">
+          ✦ Start Your Project
+        </a>
+        <a href="#" class="btn-ghost">
+          See Our Work →
+        </a>
+      </div>
+
+      <div class="trust-bar">
+        <span class="trust-label">Trusted by teams at</span>
+        <div class="trust-avatars">
+          <div class="avatar av1">A</div>
+          <div class="avatar av2">M</div>
+          <div class="avatar av3">R</div>
+          <div class="avatar av4">S</div>
+          <div class="avatar av-more">+40</div>
+        </div>
+        <div class="rating">
+          <span class="stars">★★★★★</span>
+          <span class="rating-text">5.0 · 80+ reviews</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-strip">
+    <div class="stat">
+      <span class="stat-num">180+</span>
+      <span class="stat-label">Projects Shipped</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">98%</span>
+      <span class="stat-label">Client Retention</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">3×</span>
+      <span class="stat-label">Avg. Revenue Lift</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">14d</span>
+      <span class="stat-label">Avg. First Delivery</span>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <section class="features">
+    <p class="section-label">What We Do</p>
+    <h2 class="section-title">Everything You Need to Launch & Scale</h2>
+    <p class="section-sub">
+      We cover the full product stack — design, engineering, and growth — so you can focus on your business.
+    </p>
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon fi-1">⚡</div>
+        <h3 class="feature-title">Rapid MVP Development</h3>
+        <p class="feature-desc">Go from idea to live product in weeks, not months. We move fast without cutting corners so you can validate and raise faster.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon fi-2">📱</div>
+        <h3 class="feature-title">Web & Mobile Apps</h3>
+        <p class="feature-desc">Pixel-perfect interfaces on every device. React, Next.js, Flutter, and native Android — we pick the right stack for your users.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon fi-3">🔗</div>
+        <h3 class="feature-title">Backend & API Engineering</h3>
+        <p class="feature-desc">Robust, secure, and scalable APIs built to handle your peak traffic. Cloud-native architectures that grow with you.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon fi-4">🤖</div>
+        <h3 class="feature-title">AI Integration</h3>
+        <p class="feature-desc">Embed AI into your product — smart search, automation, chatbots, recommendation engines. Real features, not gimmicks.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon fi-5">🎨</div>
+        <h3 class="feature-title">UI/UX Design</h3>
+        <p class="feature-desc">Design that converts. Every screen, flow, and interaction is crafted to reduce friction and keep users coming back.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon fi-6">📈</div>
+        <h3 class="feature-title">Growth Engineering</h3>
+        <p class="feature-desc">Performance, SEO, analytics, and conversion optimization baked in from day one — not bolted on as an afterthought.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BAND -->
+  <div class="cta-band">
+    <div class="cta-text">
+      <h2>Ready to Build Something That Wins?</h2>
+      <p>
+        Book a free 30-minute strategy call. We'll audit your current product, identify the biggest opportunity,
+        and show you exactly how we'd approach it — no pitch, just value.
+      </p>
+    </div>
+    <div class="cta-actions">
+      <a href="#" class="btn-primary">Book Free Call →</a>
+      <a href="#" class="btn-ghost">View Case Studies</a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Zynapse. All rights reserved.</p>
+    <div class="social-icons">
+      <a href="#" class="social-icon" aria-label="Instagram">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </a>
+      <a href="#" class="social-icon" aria-label="X / Twitter">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.246l7.738-8.835L1.254 2.25H8.08l4.713 5.88zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+      <a href="#" class="social-icon" aria-label="LinkedIn">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <a href="#" class="social-icon" aria-label="GitHub">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+      </a>
+    </div>
+    <div class="footer-links">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">hello@zynapse.io</a>
+    </div>
+  </footer>
+
+</body>
+</html>
