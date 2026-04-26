@@ -379,6 +379,141 @@
       line-height: 1.65;
     }
 
+    /* ── SERVICES TABS ── */
+    .services-section {
+      padding: 100px 48px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .services-layout {
+      display: grid;
+      grid-template-columns: 320px 1px 1fr;
+      gap: 0;
+      min-height: 480px;
+    }
+
+    .services-tabs {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      padding-right: 40px;
+    }
+
+    .service-tab {
+      text-align: right;
+      padding: 20px 0;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--muted);
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      transition: color .25s;
+      line-height: 1.3;
+    }
+    .service-tab:hover { color: var(--text); }
+    .service-tab.active {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .services-divider {
+      background: var(--border);
+      position: relative;
+    }
+
+    .services-panel {
+      padding-left: 56px;
+      display: none;
+      animation: fadeInPanel .35s ease;
+    }
+    .services-panel.active { display: block; }
+
+    @keyframes fadeInPanel {
+      from { opacity: 0; transform: translateX(12px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    .panel-icon {
+      width: 76px; height: 76px;
+      border-radius: 16px;
+      background: rgba(124,111,252,0.12);
+      border: 1px solid rgba(124,111,252,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin-bottom: 28px;
+    }
+
+    .panel-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 16px;
+    }
+
+    .panel-desc {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.75;
+      max-width: 480px;
+      margin-bottom: 32px;
+    }
+
+    .panel-stats {
+      display: flex;
+      gap: 48px;
+      margin-bottom: 36px;
+    }
+
+    .panel-stat-val {
+      font-size: 1.4rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .panel-stat-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .panel-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text);
+      font-size: 0.875rem;
+      font-weight: 700;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      padding: 10px 20px;
+      border-radius: 8px;
+      background: var(--surface);
+      transition: border-color .2s, background .2s;
+    }
+    .panel-cta:hover {
+      border-color: rgba(124,111,252,0.4);
+      background: rgba(124,111,252,0.08);
+    }
+
+    @media (max-width: 900px) {
+      .services-section { padding: 60px 24px; }
+      .services-layout { grid-template-columns: 1fr; }
+      .services-divider { display: none; }
+      .services-tabs { flex-direction: row; flex-wrap: wrap; gap: 8px; padding-right: 0; margin-bottom: 32px; }
+      .service-tab { font-size: 0.85rem; text-align: left; padding: 8px 16px; border-radius: 100px; border: 1px solid var(--border); }
+      .service-tab.active { border-color: rgba(124,111,252,0.4); background: rgba(124,111,252,0.1); -webkit-text-fill-color: unset; color: var(--accent); }
+      .services-panel { padding-left: 0; }
+    }
+
     /* ── CTA BAND ── */
     .cta-band {
       margin: 0 48px 100px;
@@ -468,10 +603,10 @@
   <nav>
     <span class="logo">Zynaps<span style="-webkit-text-fill-color:#22c55e;color:#22c55e;">e</span> ✦</span>
     <ul class="nav-links">
-      <li><a href="#">Services</a></li>
+      <li><a href="#services">Services</a></li>
       <li><a href="#">Work</a></li>
-      <li><a href="#">About</a></li>
-      <li><a href="#">Pricing</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="team.html">Our Team</a></li>
       <li><a href="careers.html">Careers</a></li>
     </ul>
     <button class="nav-cta">Book a Free Call →</button>
@@ -587,6 +722,147 @@
       </div>
     </div>
   </section>
+
+  <!-- SERVICES TABS -->
+  <section class="services-section" id="services">
+    <p class="section-label">Our Services</p>
+    <h2 class="section-title">What We Specialise In</h2>
+    <p class="section-sub">
+      From mobile apps to immersive AR/VR — we bring the right expertise to every challenge.
+    </p>
+
+    <div class="services-layout">
+      <!-- Tab list -->
+      <div class="services-tabs">
+        <button class="service-tab active" data-tab="app-dev">Application<br>Development Services</button>
+        <button class="service-tab" data-tab="mobile">Mobile App<br>Development Services</button>
+        <button class="service-tab" data-tab="uiux">UI UX Design Services</button>
+        <button class="service-tab" data-tab="arvr">AR/VR Metaverse<br>Development Services</button>
+        <button class="service-tab" data-tab="ai">AI &amp; Automation<br>Integration</button>
+      </div>
+
+      <!-- Divider -->
+      <div class="services-divider" id="svc-divider">
+        <div id="svc-indicator" style="position:absolute;left:0;width:2px;background:linear-gradient(180deg,var(--accent) 0%,var(--accent2) 100%);transition:top .35s ease,height .35s ease;top:0;height:0;border-radius:2px;"></div>
+      </div>
+
+      <!-- Panels -->
+      <div>
+        <div class="services-panel active" id="panel-app-dev">
+          <div class="panel-icon">⚡</div>
+          <h3 class="panel-title">Application Development Services</h3>
+          <p class="panel-desc">Bring your ideas to life with Zynapse's application development services. Our skilled team creates powerful software solutions that are efficient, innovative, and tailored to your company's specific needs. We focus on delivering applications that are not only effective but also perfectly suited to help you achieve your business objectives.</p>
+          <div class="panel-stats">
+            <div>
+              <span class="panel-stat-val">200+</span>
+              <span class="panel-stat-label">Projects Delivered</span>
+            </div>
+            <div>
+              <span class="panel-stat-val">95%</span>
+              <span class="panel-stat-label">Client Satisfaction</span>
+            </div>
+          </div>
+          <a href="#" class="panel-cta">View Service →</a>
+        </div>
+
+        <div class="services-panel" id="panel-mobile">
+          <div class="panel-icon">📱</div>
+          <h3 class="panel-title">Mobile App Development Services</h3>
+          <p class="panel-desc">The mobile app development services offered by Zynapse can help you turn your ideas into a reality. Depending on your company's unique requirements, our talented team will design and develop cutting-edge apps that meet those demands — Android, iOS, and cross-platform with Flutter.</p>
+          <div class="panel-stats">
+            <div>
+              <span class="panel-stat-val">20+</span>
+              <span class="panel-stat-label">Cross-Platform Apps Developed</span>
+            </div>
+            <div>
+              <span class="panel-stat-val">1M+</span>
+              <span class="panel-stat-label">App Downloads</span>
+            </div>
+          </div>
+          <a href="#" class="panel-cta">View Service →</a>
+        </div>
+
+        <div class="services-panel" id="panel-uiux">
+          <div class="panel-icon">🎨</div>
+          <h3 class="panel-title">UI UX Design Services</h3>
+          <p class="panel-desc">Develop engaging digital interfaces with Zynapse's UI/UX design services. Our user-focused approach enhances the overall experience and improves functionality across various digital platforms. We prioritize user satisfaction and ease of use in all our design solutions.</p>
+          <div class="panel-stats">
+            <div>
+              <span class="panel-stat-val">70+</span>
+              <span class="panel-stat-label">Design Projects Completed</span>
+            </div>
+            <div>
+              <span class="panel-stat-val">Zero</span>
+              <span class="panel-stat-label">Accessibility Issues</span>
+            </div>
+          </div>
+          <a href="#" class="panel-cta">View Service →</a>
+        </div>
+
+        <div class="services-panel" id="panel-arvr">
+          <div class="panel-icon">🥽</div>
+          <h3 class="panel-title">AR/VR Metaverse Development Services</h3>
+          <p class="panel-desc">Discover new frontiers with Zynapse's AR/VR Metaverse development services. Our expertise lies in developing engaging digital spaces that provide innovative approaches to education, entertainment, and commercial activities.</p>
+          <div class="panel-stats">
+            <div>
+              <span class="panel-stat-val">Immersive</span>
+              <span class="panel-stat-label">Experiences</span>
+            </div>
+            <div>
+              <span class="panel-stat-val">60+</span>
+              <span class="panel-stat-label">Interactive Scenarios</span>
+            </div>
+          </div>
+          <a href="#" class="panel-cta">View Service →</a>
+        </div>
+
+        <div class="services-panel" id="panel-ai">
+          <div class="panel-icon">🤖</div>
+          <h3 class="panel-title">AI &amp; Automation Integration</h3>
+          <p class="panel-desc">Embed intelligence into your products with Zynapse's AI and automation services. From smart search and recommendation engines to workflow automation and chatbots — we implement real AI features that move the needle on efficiency and engagement.</p>
+          <div class="panel-stats">
+            <div>
+              <span class="panel-stat-val">40+</span>
+              <span class="panel-stat-label">AI Features Shipped</span>
+            </div>
+            <div>
+              <span class="panel-stat-val">3×</span>
+              <span class="panel-stat-label">Avg. Efficiency Gain</span>
+            </div>
+          </div>
+          <a href="#" class="panel-cta">View Service →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    (function () {
+      const tabs      = document.querySelectorAll('.service-tab');
+      const indicator = document.getElementById('svc-indicator');
+
+      function updateIndicator(activeTab) {
+        const tabsEl   = activeTab.closest('.services-tabs');
+        const tabsRect = tabsEl.getBoundingClientRect();
+        const tabRect  = activeTab.getBoundingClientRect();
+        indicator.style.top    = (tabRect.top - tabsRect.top)  + 'px';
+        indicator.style.height = tabRect.height + 'px';
+      }
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          document.querySelectorAll('.services-panel').forEach(p => p.classList.remove('active'));
+          tab.classList.add('active');
+          document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
+          updateIndicator(tab);
+        });
+      });
+
+      const firstActive = document.querySelector('.service-tab.active');
+      if (firstActive) updateIndicator(firstActive);
+    })();
+  </script>
 
   <!-- CTA BAND -->
   <div class="cta-band">
