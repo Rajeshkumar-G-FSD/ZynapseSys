@@ -376,136 +376,195 @@
     /* ── SERVICES TABS ── */
     .services-section {
       padding: 100px 48px;
-      max-width: 1200px;
+      max-width: 1280px;
       margin: 0 auto;
     }
 
-    .services-layout {
-      display: grid;
-      grid-template-columns: 320px 1px 1fr;
-      gap: 0;
-      min-height: 480px;
-    }
-
-    .services-tabs {
+    .cs-grid {
       display: flex;
       flex-direction: column;
-      gap: 0;
-      padding-right: 40px;
+      gap: 24px;
     }
 
-    .service-tab {
-      text-align: right;
-      padding: 20px 0;
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--muted);
-      cursor: pointer;
-      border: none;
-      background: transparent;
-      transition: color .25s;
-      line-height: 1.3;
-    }
-    .service-tab:hover { color: var(--text); }
-    .service-tab.active {
-      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    .cs-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
     }
 
-    .services-divider {
-      background: var(--border);
+    .cs-row-left {
+      opacity: 0;
+      transform: translateX(-80px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .cs-row-right {
+      opacity: 0;
+      transform: translateX(80px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .cs-row.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .cs-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 36px;
       position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
     }
 
-    .services-panel {
-      padding-left: 56px;
-      display: none;
-      animation: fadeInPanel .35s ease;
-    }
-    .services-panel.active { display: block; }
-
-    @keyframes fadeInPanel {
-      from { opacity: 0; transform: translateX(12px); }
-      to   { opacity: 1; transform: translateX(0); }
+    .cs-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 48px rgba(0,0,0,0.35);
+      border-color: rgba(124,111,252,0.3);
     }
 
-    .panel-icon {
-      width: 76px; height: 76px;
-      border-radius: 16px;
-      background: rgba(124,111,252,0.12);
+    .cs-card.featured {
+      background: #0f1d3a;
+      border-color: rgba(124,111,252,0.25);
+    }
+
+    .cs-card.featured:hover {
+      border-color: rgba(62,207,207,0.4);
+      box-shadow: 0 20px 48px rgba(62,207,207,0.12);
+    }
+
+    .cs-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: rgba(124,111,252,0.1);
       border: 1px solid rgba(124,111,252,0.2);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 2rem;
-      margin-bottom: 28px;
+      margin-bottom: 20px;
     }
 
-    .panel-title {
-      font-size: 1.5rem;
-      font-weight: 800;
-      letter-spacing: -0.5px;
+    .cs-icon svg { width: 24px; height: 24px; }
+
+    .cs-card.featured .cs-icon {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.15);
+    }
+
+    .cs-badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      background: rgba(62,207,207,0.1);
+      border: 1px solid rgba(62,207,207,0.2);
+      padding: 4px 10px;
+      border-radius: 100px;
       margin-bottom: 16px;
     }
 
-    .panel-desc {
-      color: var(--muted);
-      font-size: 0.95rem;
-      line-height: 1.75;
-      max-width: 480px;
-      margin-bottom: 32px;
+    .cs-badge.popular {
+      color: #080810;
+      background: var(--accent2);
+      border-color: transparent;
     }
 
-    .panel-stats {
-      display: flex;
-      gap: 48px;
-      margin-bottom: 36px;
-    }
-
-    .panel-stat-val {
-      font-size: 1.4rem;
+    .cs-title {
+      font-size: 1.25rem;
       font-weight: 800;
-      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      display: block;
-      margin-bottom: 4px;
+      letter-spacing: -0.3px;
+      margin-bottom: 10px;
+      color: var(--text);
+      line-height: 1.3;
     }
 
-    .panel-stat-label {
-      font-size: 0.8rem;
+    .cs-card.featured .cs-title { color: #fff; }
+
+    .cs-desc {
+      font-size: 0.875rem;
       color: var(--muted);
-      font-weight: 500;
+      line-height: 1.7;
+      margin-bottom: 22px;
     }
 
-    .panel-cta {
+    .cs-card.featured .cs-desc { color: rgba(255,255,255,0.6); }
+
+    .cs-features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .cs-features li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .cs-card.featured .cs-features li { color: rgba(255,255,255,0.88); }
+
+    .cs-check {
+      width: 18px;
+      height: 18px;
+      min-width: 18px;
+      border-radius: 50%;
+      border: 1.5px solid var(--accent2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cs-check svg { width: 10px; height: 10px; }
+
+    .cs-cta {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      color: var(--text);
-      font-size: 0.875rem;
+      gap: 6px;
+      font-size: 0.75rem;
       font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
       text-decoration: none;
-      border: 1px solid var(--border);
-      padding: 10px 20px;
-      border-radius: 8px;
-      background: var(--surface);
-      transition: border-color .2s, background .2s;
-    }
-    .panel-cta:hover {
-      border-color: rgba(124,111,252,0.4);
-      background: rgba(124,111,252,0.08);
+      color: var(--accent);
+      transition: gap 0.2s ease;
     }
 
-    @media (max-width: 900px) {
-      .services-section { padding: 60px 24px; }
-      .services-layout { grid-template-columns: 1fr; }
-      .services-divider { display: none; }
-      .services-tabs { flex-direction: row; flex-wrap: wrap; gap: 8px; padding-right: 0; margin-bottom: 32px; }
-      .service-tab { font-size: 0.85rem; text-align: left; padding: 8px 16px; border-radius: 100px; border: 1px solid var(--border); }
-      .service-tab.active { border-color: rgba(124,111,252,0.4); background: rgba(124,111,252,0.1); -webkit-text-fill-color: unset; color: var(--accent); }
-      .services-panel { padding-left: 0; }
+    .cs-card.featured .cs-cta { color: #fff; }
+    .cs-cta:hover { gap: 12px; }
+
+    .cs-number {
+      position: absolute;
+      bottom: 20px;
+      right: 24px;
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: rgba(255,255,255,0.04);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .cs-card.featured .cs-number { color: rgba(255,255,255,0.07); }
+
+    @media (max-width: 1024px) {
+      .cs-row { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 640px) {
+      .services-section { padding: 60px 20px; }
+      .cs-row { grid-template-columns: 1fr; }
+      .cs-row-left, .cs-row-right { transform: translateY(40px); }
     }
 
     /* ── CTA BAND ── */
@@ -641,6 +700,7 @@
       <li><a href="about.html">About</a></li>
       <li><a href="team.html">Our Team</a></li>
       <li><a href="careers.html">Careers</a></li>
+      <li><a href="deliver.html">Deliver</a></li>
     </ul>
     <button class="nav-cta">Book a Free Call →</button>
   </nav>
@@ -756,114 +816,134 @@
     </div>
   </section>
 
-  <!-- SERVICES TABS -->
+  <!-- CORE SERVICES CARDS -->
   <section class="services-section" id="services">
-    <p class="section-label">Our Services</p>
-    <h2 class="section-title">What We Specialise In</h2>
+    <p class="section-label">What We Offer</p>
+    <h2 class="section-title">Our <span style="background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Core Services</span></h2>
     <p class="section-sub">
-      From mobile apps to immersive AR/VR — we bring the right expertise to every challenge.
+      From building your first website to scaling your e-commerce store — we cover the full digital spectrum for Tamil Nadu businesses.
     </p>
 
-    <div class="services-layout">
-      <!-- Tab list -->
-      <div class="services-tabs">
-        <button class="service-tab active" data-tab="app-dev">Application<br>Development Services</button>
-        <button class="service-tab" data-tab="mobile">Mobile App<br>Development Services</button>
-        <button class="service-tab" data-tab="uiux">UI UX Design Services</button>
-        <button class="service-tab" data-tab="arvr">AR/VR Metaverse<br>Development Services</button>
-        <button class="service-tab" data-tab="ai">AI &amp; Automation<br>Integration</button>
+    <div class="cs-grid">
+      <!-- Row 1 — slides in from left -->
+      <div class="cs-row cs-row-left">
+
+        <!-- Card 1: Website Development (featured) -->
+        <div class="cs-card featured">
+          <div class="cs-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <span class="cs-badge popular">Most Popular</span>
+          <h3 class="cs-title">Website Development</h3>
+          <p class="cs-desc">Fast, mobile-first websites that represent your brand and convert visitors into customers. WordPress, custom HTML &amp; more.</p>
+          <ul class="cs-features">
+            <li><span class="cs-check"><svg viewBox="0 0 10 8" fill="none"><path d="M1 3.5L3.5 6L9 1" stroke="#3ecfcf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Responsive Mobile Design</li>
+            <li><span class="cs-check"><svg viewBox="0 0 10 8" fill="none"><path d="M1 3.5L3.5 6L9 1" stroke="#3ecfcf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>WordPress / Custom Build</li>
+            <li><span class="cs-check"><svg viewBox="0 0 10 8" fill="none"><path d="M1 3.5L3.5 6L9 1" stroke="#3ecfcf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>SEO-Optimized Structure</li>
+            <li><span class="cs-check"><svg viewBox="0 0 10 8" fill="none"><path d="M1 3.5L3.5 6L9 1" stroke="#3ecfcf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Fast Loading Speed</li>
+            <li><span class="cs-check"><svg viewBox="0 0 10 8" fill="none"><path d="M1 3.5L3.5 6L9 1" stroke="#3ecfcf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>1 Year Free Support</li>
+          </ul>
+          <a href="#" class="cs-cta">Get Started &rarr;</a>
+          <span class="cs-number">01</span>
+        </div>
+
+        <!-- Card 2: Online Store Development -->
+        <div class="cs-card">
+          <div class="cs-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          </div>
+          <span class="cs-badge">E-Commerce</span>
+          <h3 class="cs-title">Online Store Development</h3>
+          <p class="cs-desc">Powerful WooCommerce &amp; Shopify stores with payment integration, product management, and order tracking.</p>
+          <ul class="cs-features">
+            <li><span class="cs-check"><svg viewBox="0 0 10 8" fill="none"><path d="M1 3.5L3.5 6L9 1" stroke="#3ecfcf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>WooCommerce / Shopify</li>
+            <li><span class="cs-check"><svg viewBox="0 0 10 8" fill="none"><path d="M1 3.5L3.5 6L9 1" stroke="#3ecfcf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Razorpay &amp; Paytm Integration</li>
+            <li><span class="cs-check"><svg viewBox="0 0 10 8" fill="none"><path d="M1 3.5L3.5 6L9 1" stroke="#3ecfcf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Product Catalogue Setup</li>
+            <li><span class="cs-check"><svg viewBox="0 0 10 8" fill="none"><path d="M1 3.5L3.5 6L9 1" stroke="#3ecfcf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Inventory Management</li>
+            <li><span class="cs-check"><svg viewBox="0 0 10 8" fill="none"><path d="M1 3.5L3.5 6L9 1" stroke="#3ecfcf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>GST Invoice Automation</li>
+          </ul>
+          <a href="#" class="cs-cta">Explore &rarr;</a>
+          <span class="cs-number">02</span>
+        </div>
+
+        <!-- Card 3: Digital Marketing -->
+        <div class="cs-card">
+          <div class="cs-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </div>
+          <span class="cs-badge">Marketing</span>
+          <h3 class="cs-title">Digital Marketing</h3>
+          <p class="cs-desc">Meta Ads, Google Ads, and SEO strategies that bring real leads and measurable ROI for your business.</p>
+          <ul class="cs-features">
+            <li><span class="cs-check"><svg viewBox="0 0 10 8" fill="none"><path d="M1 3.5L3.5 6L9 1" stroke="#3ecfcf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Meta &amp; Google Ads</li>
+            <li><span class="cs-check"><svg viewBox="0 0 10 8" fill="none"><path d="M1 3.5L3.5 6L9 1" stroke="#3ecfcf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>SEO &amp; Local Rankings</li>
+            <li><span class="cs-check"><svg viewBox="0 0 10 8" fill="none"><path d="M1 3.5L3.5 6L9 1" stroke="#3ecfcf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Lead Generation Campaigns</li>
+            <li><span class="cs-check"><svg viewBox="0 0 10 8" fill="none"><path d="M1 3.5L3.5 6L9 1" stroke="#3ecfcf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Monthly Reports</li>
+            <li><span class="cs-check"><svg viewBox="0 0 10 8" fill="none"><path d="M1 3.5L3.5 6L9 1" stroke="#3ecfcf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>ROI-Focused Strategy</li>
+          </ul>
+          <a href="#" class="cs-cta">Explore &rarr;</a>
+          <span class="cs-number">03</span>
+        </div>
       </div>
 
-      <!-- Divider -->
-      <div class="services-divider" id="svc-divider">
-        <div id="svc-indicator" style="position:absolute;left:0;width:2px;background:linear-gradient(180deg,var(--accent) 0%,var(--accent2) 100%);transition:top .35s ease,height .35s ease;top:0;height:0;border-radius:2px;"></div>
-      </div>
+      <!-- Row 2 — slides in from right -->
+      <div class="cs-row cs-row-right">
 
-      <!-- Panels -->
-      <div>
-        <div class="services-panel active" id="panel-app-dev">
-          <div class="panel-icon">⚡</div>
-          <h3 class="panel-title">Application Development Services</h3>
-          <p class="panel-desc">Bring your ideas to life with Zynapse's application development services. Our skilled team creates powerful software solutions that are efficient, innovative, and tailored to your company's specific needs. We focus on delivering applications that are not only effective but also perfectly suited to help you achieve your business objectives.</p>
-          <div class="panel-stats">
-            <div>
-              <span class="panel-stat-val">200+</span>
-              <span class="panel-stat-label">Projects Delivered</span>
-            </div>
-            <div>
-              <span class="panel-stat-val">95%</span>
-              <span class="panel-stat-label">Client Satisfaction</span>
-            </div>
+        <!-- Card 4: Social Media Management -->
+        <div class="cs-card">
+          <div class="cs-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
           </div>
-          <a href="#" class="panel-cta">View Service →</a>
+          <span class="cs-badge">Social Media</span>
+          <h3 class="cs-title">Social Media Management</h3>
+          <p class="cs-desc">Content creation, Reels, and posting calendars that build your brand's authority on Instagram &amp; Facebook.</p>
+          <ul class="cs-features">
+            <li><span class="cs-check"><svg viewBox="0 0 10 8" fill="none"><path d="M1 3.5L3.5 6L9 1" stroke="#3ecfcf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Instagram &amp; Facebook</li>
+            <li><span class="cs-check"><svg viewBox="0 0 10 8" fill="none"><path d="M1 3.5L3.5 6L9 1" stroke="#3ecfcf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Reels &amp; Graphic Design</li>
+            <li><span class="cs-check"><svg viewBox="0 0 10 8" fill="none"><path d="M1 3.5L3.5 6L9 1" stroke="#3ecfcf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Content Calendar</li>
+            <li><span class="cs-check"><svg viewBox="0 0 10 8" fill="none"><path d="M1 3.5L3.5 6L9 1" stroke="#3ecfcf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Engagement Management</li>
+            <li><span class="cs-check"><svg viewBox="0 0 10 8" fill="none"><path d="M1 3.5L3.5 6L9 1" stroke="#3ecfcf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Monthly Analytics</li>
+          </ul>
+          <a href="#" class="cs-cta">Explore &rarr;</a>
+          <span class="cs-number">04</span>
         </div>
 
-        <div class="services-panel" id="panel-mobile">
-          <div class="panel-icon">📱</div>
-          <h3 class="panel-title">Mobile App Development Services</h3>
-          <p class="panel-desc">The mobile app development services offered by Zynapse can help you turn your ideas into a reality. Depending on your company's unique requirements, our talented team will design and develop cutting-edge apps that meet those demands — Android, iOS, and cross-platform with Flutter.</p>
-          <div class="panel-stats">
-            <div>
-              <span class="panel-stat-val">20+</span>
-              <span class="panel-stat-label">Cross-Platform Apps Developed</span>
-            </div>
-            <div>
-              <span class="panel-stat-val">1M+</span>
-              <span class="panel-stat-label">App Downloads</span>
-            </div>
+        <!-- Card 5: SEO & Google Ranking -->
+        <div class="cs-card">
+          <div class="cs-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
           </div>
-          <a href="#" class="panel-cta">View Service →</a>
+          <span class="cs-badge">SEO</span>
+          <h3 class="cs-title">SEO &amp; Google Ranking</h3>
+          <p class="cs-desc">Get your business to Google Page 1. Local SEO, GMB optimization, and backlink building for Tamil Nadu markets.</p>
+          <ul class="cs-features">
+            <li><span class="cs-check"><svg viewBox="0 0 10 8" fill="none"><path d="M1 3.5L3.5 6L9 1" stroke="#3ecfcf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Google My Business Setup</li>
+            <li><span class="cs-check"><svg viewBox="0 0 10 8" fill="none"><path d="M1 3.5L3.5 6L9 1" stroke="#3ecfcf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Local SEO Optimization</li>
+            <li><span class="cs-check"><svg viewBox="0 0 10 8" fill="none"><path d="M1 3.5L3.5 6L9 1" stroke="#3ecfcf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>On-Page &amp; Off-Page SEO</li>
+            <li><span class="cs-check"><svg viewBox="0 0 10 8" fill="none"><path d="M1 3.5L3.5 6L9 1" stroke="#3ecfcf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Keyword Research</li>
+            <li><span class="cs-check"><svg viewBox="0 0 10 8" fill="none"><path d="M1 3.5L3.5 6L9 1" stroke="#3ecfcf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Monthly Ranking Reports</li>
+          </ul>
+          <a href="#" class="cs-cta">Explore &rarr;</a>
+          <span class="cs-number">05</span>
         </div>
 
-        <div class="services-panel" id="panel-uiux">
-          <div class="panel-icon">🎨</div>
-          <h3 class="panel-title">UI UX Design Services</h3>
-          <p class="panel-desc">Develop engaging digital interfaces with Zynapse's UI/UX design services. Our user-focused approach enhances the overall experience and improves functionality across various digital platforms. We prioritize user satisfaction and ease of use in all our design solutions.</p>
-          <div class="panel-stats">
-            <div>
-              <span class="panel-stat-val">70+</span>
-              <span class="panel-stat-label">Design Projects Completed</span>
-            </div>
-            <div>
-              <span class="panel-stat-val">Zero</span>
-              <span class="panel-stat-label">Accessibility Issues</span>
-            </div>
+        <!-- Card 6: Graphic & Brand Design -->
+        <div class="cs-card">
+          <div class="cs-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5" fill="var(--accent)"/><circle cx="17.5" cy="10.5" r=".5" fill="var(--accent)"/><circle cx="8.5" cy="7.5" r=".5" fill="var(--accent)"/><circle cx="6.5" cy="12.5" r=".5" fill="var(--accent)"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
           </div>
-          <a href="#" class="panel-cta">View Service →</a>
-        </div>
-
-        <div class="services-panel" id="panel-arvr">
-          <div class="panel-icon">🥽</div>
-          <h3 class="panel-title">AR/VR Metaverse Development Services</h3>
-          <p class="panel-desc">Discover new frontiers with Zynapse's AR/VR Metaverse development services. Our expertise lies in developing engaging digital spaces that provide innovative approaches to education, entertainment, and commercial activities.</p>
-          <div class="panel-stats">
-            <div>
-              <span class="panel-stat-val">Immersive</span>
-              <span class="panel-stat-label">Experiences</span>
-            </div>
-            <div>
-              <span class="panel-stat-val">60+</span>
-              <span class="panel-stat-label">Interactive Scenarios</span>
-            </div>
-          </div>
-          <a href="#" class="panel-cta">View Service →</a>
-        </div>
-
-        <div class="services-panel" id="panel-ai">
-          <div class="panel-icon">🤖</div>
-          <h3 class="panel-title">AI &amp; Automation Integration</h3>
-          <p class="panel-desc">Embed intelligence into your products with Zynapse's AI and automation services. From smart search and recommendation engines to workflow automation and chatbots — we implement real AI features that move the needle on efficiency and engagement.</p>
-          <div class="panel-stats">
-            <div>
-              <span class="panel-stat-val">40+</span>
-              <span class="panel-stat-label">AI Features Shipped</span>
-            </div>
-            <div>
-              <span class="panel-stat-val">3×</span>
-              <span class="panel-stat-label">Avg. Efficiency Gain</span>
-            </div>
-          </div>
-          <a href="#" class="panel-cta">View Service →</a>
+          <span class="cs-badge">Design</span>
+          <h3 class="cs-title">Graphic &amp; Brand Design</h3>
+          <p class="cs-desc">Logo design, brand identity kits, and marketing creatives that make your business look professional and memorable.</p>
+          <ul class="cs-features">
+            <li><span class="cs-check"><svg viewBox="0 0 10 8" fill="none"><path d="M1 3.5L3.5 6L9 1" stroke="#3ecfcf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Logo &amp; Brand Identity</li>
+            <li><span class="cs-check"><svg viewBox="0 0 10 8" fill="none"><path d="M1 3.5L3.5 6L9 1" stroke="#3ecfcf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Business Card &amp; Flyer</li>
+            <li><span class="cs-check"><svg viewBox="0 0 10 8" fill="none"><path d="M1 3.5L3.5 6L9 1" stroke="#3ecfcf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Social Media Templates</li>
+            <li><span class="cs-check"><svg viewBox="0 0 10 8" fill="none"><path d="M1 3.5L3.5 6L9 1" stroke="#3ecfcf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Brochure Design</li>
+            <li><span class="cs-check"><svg viewBox="0 0 10 8" fill="none"><path d="M1 3.5L3.5 6L9 1" stroke="#3ecfcf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Brand Style Guide</li>
+          </ul>
+          <a href="#" class="cs-cta">Explore &rarr;</a>
+          <span class="cs-number">06</span>
         </div>
       </div>
     </div>
@@ -871,29 +951,17 @@
 
   <script>
     (function () {
-      const tabs      = document.querySelectorAll('.service-tab');
-      const indicator = document.getElementById('svc-indicator');
-
-      function updateIndicator(activeTab) {
-        const tabsEl   = activeTab.closest('.services-tabs');
-        const tabsRect = tabsEl.getBoundingClientRect();
-        const tabRect  = activeTab.getBoundingClientRect();
-        indicator.style.top    = (tabRect.top - tabsRect.top)  + 'px';
-        indicator.style.height = tabRect.height + 'px';
-      }
-
-      tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-          tabs.forEach(t => t.classList.remove('active'));
-          document.querySelectorAll('.services-panel').forEach(p => p.classList.remove('active'));
-          tab.classList.add('active');
-          document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
-          updateIndicator(tab);
+      const rows = document.querySelectorAll('.cs-row');
+      const observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          } else {
+            entry.target.classList.remove('visible');
+          }
         });
-      });
-
-      const firstActive = document.querySelector('.service-tab.active');
-      if (firstActive) updateIndicator(firstActive);
+      }, { threshold: 0.12 });
+      rows.forEach(function (row) { observer.observe(row); });
     })();
   </script>
 
