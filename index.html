@@ -44,7 +44,7 @@
     }
 
     .logo-link { display: flex; align-items: center; text-decoration: none; }
-    .logo-img   { height: 70px; width: auto; object-fit: contain; display: block; }
+    .logo-img   { height: 88px; width: auto; object-fit: contain; display: block; }
 
     .nav-links {
       display: flex;
@@ -71,6 +71,8 @@
       font-size: 0.875rem;
       font-weight: 600;
       cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
       transition: opacity .2s, transform .2s;
     }
     .nav-cta:hover { opacity: .85; transform: translateY(-1px); }
@@ -91,6 +93,21 @@
       height: 100%;
       z-index: 0;
       opacity: 0.85;
+    }
+
+    /* Hide Spline watermark */
+    spline-viewer::part(logo),
+    spline-viewer #logo { display: none !important; }
+
+    .spline-watermark-blocker {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 200px;
+      height: 60px;
+      z-index: 3;
+      background: transparent;
+      pointer-events: none;
     }
 
     .hero-overlay {
@@ -155,20 +172,108 @@
       -webkit-text-fill-color: transparent;
     }
 
-    .hero-sub {
+    .hero-tagline {
       font-size: 1.1rem;
-      color: var(--muted);
-      line-height: 1.7;
+      font-weight: 600;
+      color: rgba(240,240,248,0.85);
+      margin-bottom: 16px;
       max-width: 520px;
-      margin-bottom: 40px;
+    }
+
+    .hero-tagline em {
+      background: linear-gradient(135deg, var(--accent2), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-style: normal;
+    }
+
+    .hero-sub {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 520px;
+      margin-bottom: 24px;
       font-weight: 400;
     }
+
+    .hero-pain-gain {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 36px;
+      max-width: 520px;
+    }
+
+    .pain-item, .gain-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .pain-icon {
+      width: 20px; height: 20px; min-width: 20px;
+      border-radius: 50%;
+      background: rgba(248,113,113,0.12);
+      border: 1px solid rgba(248,113,113,0.3);
+      color: #f87171;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.65rem; font-weight: 900;
+      margin-top: 2px;
+    }
+
+    .gain-icon {
+      width: 20px; height: 20px; min-width: 20px;
+      border-radius: 50%;
+      background: rgba(62,207,207,0.12);
+      border: 1px solid rgba(62,207,207,0.3);
+      color: var(--accent2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.65rem; font-weight: 900;
+      margin-top: 2px;
+    }
+
+    .pain-item span:last-child { color: rgba(240,240,248,0.6); }
+    .gain-item span:last-child { color: rgba(240,240,248,0.88); }
 
     .hero-actions {
       display: flex;
       gap: 14px;
       flex-wrap: wrap;
-      margin-bottom: 60px;
+      margin-bottom: 16px;
+    }
+
+    .btn-cta-main {
+      font-size: 1rem;
+      padding: 16px 32px;
+      border-radius: 12px;
+      box-shadow: 0 0 40px rgba(124,111,252,0.4), 0 4px 16px rgba(0,0,0,0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-cta-main::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .btn-inner-icon { font-size: 0.75rem; opacity: 0.8; }
+
+    .hero-urgency {
+      font-size: 0.83rem;
+      color: rgba(240,240,248,0.55);
+      margin-bottom: 40px;
+      letter-spacing: 0.01em;
+    }
+
+    .hero-urgency strong {
+      color: #fbbf24;
+      font-weight: 700;
     }
 
     .btn-primary {
@@ -687,6 +792,401 @@
       footer { padding: 24px; }
       .footer-links { display: none; }
     }
+
+    /* ═══════════════════════════════
+       CONTACT SECTION
+    ═══════════════════════════════ */
+    .contact-section {
+      padding: 120px 48px;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    /* Background glow blobs */
+    .contact-section::before {
+      content: '';
+      position: absolute;
+      top: 10%;
+      right: -10%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(124,111,252,0.08) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .contact-section::after {
+      content: '';
+      position: absolute;
+      bottom: 5%;
+      left: -8%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(62,207,207,0.06) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .contact-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1.35fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    /* ── Left panel ── */
+    .contact-left {}
+
+    .contact-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .contact-eyebrow::before {
+      content: '';
+      width: 28px;
+      height: 2px;
+      background: var(--accent2);
+      border-radius: 2px;
+    }
+
+    .contact-heading {
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 900;
+      letter-spacing: -1px;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .contact-heading span {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .contact-desc {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 40px;
+      max-width: 380px;
+    }
+
+    /* Contact info cards */
+    .contact-info-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .contact-info-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 20px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .contact-info-item:hover {
+      border-color: rgba(124,111,252,0.25);
+      background: rgba(124,111,252,0.04);
+    }
+
+    .ci-icon {
+      width: 42px;
+      height: 42px;
+      min-width: 42px;
+      border-radius: 12px;
+      background: rgba(124,111,252,0.1);
+      border: 1px solid rgba(124,111,252,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    .ci-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 3px;
+    }
+
+    .ci-value {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* Response time badge */
+    .response-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(62,207,207,0.06);
+      border: 1px solid rgba(62,207,207,0.15);
+      border-radius: 100px;
+      padding: 8px 16px;
+      font-size: 0.8rem;
+      color: var(--accent2);
+      font-weight: 600;
+    }
+
+    .response-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent2);
+      animation: pulse 2s infinite;
+    }
+
+    /* ── Right panel: form ── */
+    .contact-form-card {
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      padding: 48px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 32px 80px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Subtle gradient shimmer at top */
+    .contact-form-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(124,111,252,0.5), rgba(62,207,207,0.5), transparent);
+    }
+
+    .form-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      letter-spacing: -0.4px;
+      margin-bottom: 6px;
+    }
+
+    .form-subtitle {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 36px;
+    }
+
+    .cf-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    .cf-row.full { grid-template-columns: 1fr; }
+
+    .cf-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .cf-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: rgba(240,240,248,0.7);
+      letter-spacing: 0.03em;
+    }
+
+    .cf-label .req { color: var(--accent); margin-left: 2px; }
+
+    .cf-input,
+    .cf-select,
+    .cf-textarea {
+      background: rgba(255,255,255,0.04);
+      border: 1.5px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      padding: 13px 16px;
+      outline: none;
+      transition: border-color 0.25s, background 0.25s, box-shadow 0.25s;
+      width: 100%;
+    }
+
+    .cf-input::placeholder, .cf-textarea::placeholder {
+      color: rgba(136,136,170,0.6);
+      font-size: 0.875rem;
+    }
+
+    .cf-input:focus, .cf-select:focus, .cf-textarea:focus {
+      border-color: rgba(124,111,252,0.55);
+      background: rgba(124,111,252,0.06);
+      box-shadow: 0 0 0 3px rgba(124,111,252,0.1);
+    }
+
+    .cf-input.v-ok, .cf-select.v-ok, .cf-textarea.v-ok {
+      border-color: rgba(34,197,94,0.5) !important;
+      background: rgba(34,197,94,0.04) !important;
+    }
+
+    .cf-input.v-err, .cf-select.v-err, .cf-textarea.v-err {
+      border-color: rgba(248,113,113,0.55) !important;
+      background: rgba(248,113,113,0.04) !important;
+    }
+
+    .cf-select { cursor: pointer; }
+    .cf-select option { background: #0c0c18; color: var(--text); }
+
+    .cf-textarea { resize: vertical; min-height: 120px; }
+
+    .cf-err {
+      font-size: 0.72rem;
+      color: #f87171;
+      min-height: 14px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Submit row */
+    .cf-submit-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+
+    .cf-submit {
+      flex: 1;
+      min-width: 180px;
+      padding: 15px 28px;
+      background: linear-gradient(135deg, var(--accent) 0%, #5b4fd6 100%);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+      box-shadow: 0 4px 24px rgba(124,111,252,0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .cf-submit:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 36px rgba(124,111,252,0.45);
+    }
+
+    .cf-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    .cf-privacy {
+      font-size: 0.72rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .cf-privacy a { color: var(--accent2); text-decoration: none; }
+
+    /* Success state */
+    .cf-success {
+      display: none;
+      text-align: center;
+      padding: 48px 24px;
+    }
+
+    .cf-success.show { display: block; }
+
+    .cf-success-icon {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: rgba(34,197,94,0.1);
+      border: 2px solid rgba(34,197,94,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.2rem;
+      margin: 0 auto 24px;
+      animation: popIn 0.5s cubic-bezier(0.22,1,0.36,1);
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.5); opacity: 0; }
+      to   { transform: scale(1);   opacity: 1; }
+    }
+
+    .cf-success h3 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .cf-success p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.65;
+      max-width: 340px;
+      margin: 0 auto;
+    }
+
+    /* Toast */
+    .ctf-toast {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 20px;
+      border-radius: 14px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+      max-width: 360px;
+      transform: translateY(60px) scale(0.95);
+      opacity: 0;
+      transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), opacity 0.4s ease;
+      pointer-events: none;
+    }
+
+    .ctf-toast.show {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .ctf-toast.t-err     { background: rgba(25,5,5,0.92);  border: 1px solid rgba(248,113,113,0.35); color: #fca5a5; }
+    .ctf-toast.t-ok      { background: rgba(5,25,12,0.92); border: 1px solid rgba(34,197,94,0.35);   color: #86efac; }
+    .ctf-toast.t-warn    { background: rgba(25,18,5,0.92); border: 1px solid rgba(251,191,36,0.35);  color: #fde68a; }
+    .ctf-toast-close { margin-left: auto; background: none; border: none; color: inherit; opacity: 0.5; cursor: pointer; font-size: 1rem; padding: 0 0 0 8px; }
+
+    @media (max-width: 1024px) {
+      .contact-inner { grid-template-columns: 1fr; gap: 56px; }
+      .contact-left { max-width: 600px; }
+      .contact-section { padding: 80px 24px; }
+      .contact-form-card { padding: 32px 24px; }
+      .cf-row { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -702,7 +1202,7 @@
       <li><a href="careers.html">Careers</a></li>
       <li><a href="deliver.html">Deliver</a></li>
     </ul>
-    <button class="nav-cta">Book a Free Call →</button>
+    <a href="#contact" class="nav-cta">Book a Free Call →</a>
   </nav>
 
   <!-- HERO -->
@@ -710,47 +1210,35 @@
     <script type="module" src="https://unpkg.com/@splinetool/viewer@1.12.88/build/spline-viewer.js"></script>
     <spline-viewer url="https://prod.spline.design/QLnkN52drVuZXJwa/scene.splinecode"></spline-viewer>
     <div class="hero-overlay"></div>
+    <div class="spline-watermark-blocker" style="background:var(--bg);opacity:1;"></div>
 
     <div class="hero-content">
+
+      <!-- Live badge -->
       <div class="badge">
         <span class="badge-dot"></span>
-        Now Accepting New Clients — Q3 2025
+        Now Accepting New Clients — Limited Slots This Month
       </div>
 
+      <!-- Main headline -->
       <h1>
         We Build Software<br>
         That <span class="highlight">Grows</span><br>
         Your Business
       </h1>
 
+      <!-- Sub-headline -->
+      <p class="hero-tagline">From MVP to Enterprise — <em>Fast, Scalable &amp; Built to Convert</em></p>
+
+      <!-- Body copy -->
       <p class="hero-sub">
-        From MVP to enterprise — we engineer fast, scalable products your clients trust.
-        Stop losing leads to a slow website or broken app. Start converting.
+        We engineer high-performance web and mobile applications your clients trust —
+        powered by Intelligent Automation for modern businesses.
       </p>
 
-      <div class="hero-actions">
-        <a href="#" class="btn-primary">
-          ✦ Start Your Project
-        </a>
-        <a href="#" class="btn-ghost">
-          See Our Work →
-        </a>
-      </div>
+    
 
-      <div class="trust-bar">
-        <span class="trust-label">Trusted by teams at</span>
-        <div class="trust-avatars">
-          <div class="avatar av1">A</div>
-          <div class="avatar av2">M</div>
-          <div class="avatar av3">R</div>
-          <div class="avatar av4">S</div>
-          <div class="avatar av-more">+40</div>
-        </div>
-        <div class="rating">
-          <span class="stars">★★★★★</span>
-          <span class="rating-text">5.0 · 80+ reviews</span>
-        </div>
-      </div>
+   
     </div>
   </section>
 
@@ -965,7 +1453,285 @@
     })();
   </script>
 
+  <script>
+    /* ══════════════════════════════════════
+       CONTACT FORM VALIDATION
+    ══════════════════════════════════════ */
+    (function () {
+      var rules = {
+        'cf-name':    { req: true,  test: function(v){ return /^[A-Za-z\s'.\-]{2,60}$/.test(v.trim()); },
+                        ok:'✓ Looks great!', errors:{ empty:'Your name is required.', invalid:'Only letters and spaces allowed (min 2 chars).' }},
+        'cf-email':   { req: true,  test: function(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()); },
+                        ok:'✓ Valid email.',  errors:{ empty:'Email address is required.', invalid:'Enter a valid email — e.g. you@company.com' }},
+        'cf-phone':   { req: true,  test: function(v){ return /^[\+]?[\d\s\-\(\)]{7,15}$/.test(v.trim()); },
+                        ok:'✓ Valid number.', errors:{ empty:'Phone number is required.', invalid:'Enter a valid phone number (7–15 digits).' }},
+        'cf-service': { req: true,  test: function(v){ return v !== ''; },
+                        ok:'✓ Service selected.', errors:{ empty:'Please select a service.' }},
+        'cf-budget':  { req: true,  test: function(v){ return v !== ''; },
+                        ok:'✓ Budget noted.',     errors:{ empty:'Please select a budget range.' }},
+        'cf-msg':     { req: true,  test: function(v){ return v.trim().length >= 20; },
+                        ok:'✓ Message noted.',   errors:{ empty:'Please describe your project.', invalid:'Please write at least 20 characters.' }}
+      };
+
+      function getErr(id, val) {
+        var r = rules[id]; if (!r) return null;
+        if (!val || val.trim() === '') return r.errors.empty || 'Required.';
+        if (id === 'cf-msg' && val.trim().length < 20) return r.errors.invalid;
+        if (!r.test(val)) return r.errors.invalid || 'Invalid value.';
+        return null;
+      }
+
+      function setState(id, state, msg) {
+        var el  = document.getElementById(id);
+        var err = document.getElementById('cfe-' + id.replace('cf-',''));
+        if (!el) return;
+        el.classList.remove('v-ok','v-err');
+        if (!err) return;
+        if (state === 'ok')  { el.classList.add('v-ok');  err.style.color='#86efac'; err.textContent = msg || ''; }
+        if (state === 'err') { el.classList.add('v-err'); err.style.color='#f87171'; err.textContent = '⚠ ' + msg; }
+        if (!state)          { err.textContent = ''; }
+      }
+
+      function validateField(id) {
+        var el = document.getElementById(id); if (!el) return true;
+        var e  = getErr(id, el.value);
+        if (e) { setState(id, 'err', e); return false; }
+        setState(id, 'ok', rules[id] ? rules[id].ok : '✓');
+        return true;
+      }
+
+      Object.keys(rules).forEach(function(id) {
+        var el = document.getElementById(id); if (!el) return;
+        el.addEventListener('blur',  function(){ if(el.value) validateField(id); });
+        el.addEventListener('input', function(){ if(el.classList.contains('v-ok')||el.classList.contains('v-err')) validateField(id); });
+      });
+
+      /* Toast */
+      var tTimer;
+      function cfShowToast(type, msg) {
+        var t = document.getElementById('cfToast');
+        var icons = { ok:'✅', err:'❌', warn:'⚠️' };
+        document.getElementById('cfToastIcon').textContent = icons[type]||'💬';
+        document.getElementById('cfToastMsg').textContent  = msg;
+        t.className = 'ctf-toast t-' + (type==='ok'?'ok':type==='err'?'err':'warn') + ' show';
+        clearTimeout(tTimer);
+        tTimer = setTimeout(cfHideToast, 5000);
+      }
+      window.cfHideToast = function(){
+        document.getElementById('cfToast').classList.remove('show');
+      };
+
+      /* Submit */
+      document.getElementById('cfForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        var allOk = Object.keys(rules).map(validateField).every(Boolean);
+        if (!allOk) {
+          var first = document.querySelector('#cfForm .v-err');
+          if (first) first.scrollIntoView({ behavior:'smooth', block:'center' });
+          cfShowToast('err', 'Please fix the errors highlighted in the form.');
+          return;
+        }
+
+        var btn = document.getElementById('cfSubmitBtn');
+        var txt = document.getElementById('cfBtnText');
+        btn.disabled = true;
+        txt.textContent = 'Sending…';
+
+        /* Collect field values */
+        var name    = document.getElementById('cf-name').value.trim();
+        var email   = document.getElementById('cf-email').value.trim();
+        var phone   = document.getElementById('cf-phone').value.trim();
+        var company = document.getElementById('cf-company').value.trim();
+        var service = document.getElementById('cf-service').value;
+        var budget  = document.getElementById('cf-budget').value;
+        var msg     = document.getElementById('cf-msg').value.trim();
+
+        /* ── 1. Send email via FormSubmit.co (AJAX) ── */
+        fetch('https://formsubmit.co/ajax/ceo@datazync.com', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({
+            _subject: '🚀 New Consultation Request — Zynapse',
+            _template: 'table',
+            _captcha: 'false',
+            Name: name,
+            Email: email,
+            Phone: phone,
+            Company: company || '—',
+            Service: service,
+            Budget: budget,
+            Message: msg
+          })
+        })
+        .catch(function() {})  /* silent fail — WhatsApp still fires */
+        .finally(function() {
+
+          /* ── 2. Open WhatsApp with pre-filled message ── */
+          var waText =
+            '🚀 *New Consultation Request — Zynapse*\n\n' +
+            '👤 *Name:* ' + name + '\n' +
+            '📧 *Email:* ' + email + '\n' +
+            '📞 *Phone:* ' + phone + '\n' +
+            '🏢 *Company:* ' + (company || '—') + '\n' +
+            '🛠 *Service:* ' + service + '\n' +
+            '💰 *Budget:* ' + budget + '\n\n' +
+            '📝 *Message:*\n' + msg;
+
+          setTimeout(function() {
+            window.open(
+              'https://wa.me/918072117912?text=' + encodeURIComponent(waText),
+              '_blank'
+            );
+          }, 600);
+
+          /* ── 3. Show success state ── */
+          document.getElementById('cfForm').style.display = 'none';
+          document.getElementById('cfSuccess').classList.add('show');
+          cfShowToast('ok', "Sent! Check your WhatsApp — we'll reply within one business day.");
+        });
+      });
+    })();
+  </script>
+
   <!-- CTA BAND -->
+  <!-- ═══ CONTACT SECTION ═══ -->
+  <section class="contact-section" id="contact">
+    <div class="contact-inner">
+
+      <!-- Left: Info -->
+      <div class="contact-left">
+        <p class="contact-eyebrow">Get In Touch</p>
+        <h2 class="contact-heading">Let's Build Something<br><span>Remarkable Together</span></h2>
+        <p class="contact-desc">
+          Tell us about your project and we'll respond within one business day with a clear action plan — no fluff, no sales pitch. Just honest advice.
+        </p>
+
+        <div class="contact-info-list">
+          <div class="contact-info-item">
+            <div class="ci-icon">✉️</div>
+            <div>
+              <div class="ci-label">Email us</div>
+              <div class="ci-value">hello@zynapse.io</div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="ci-icon">📞</div>
+            <div>
+              <div class="ci-label">Call us</div>
+              <div class="ci-value">+91 98765 43210</div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="ci-icon">📍</div>
+            <div>
+              <div class="ci-label">Location</div>
+              <div class="ci-value">Tamil Nadu, India · Remote Worldwide</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="response-badge">
+          <span class="response-dot"></span>
+          Average response time: under 4 hours
+        </div>
+      </div>
+
+      <!-- Right: Form -->
+      <div class="contact-form-card" id="cfCard">
+        <h3 class="form-title">Start Your Free Consultation</h3>
+        <p class="form-subtitle">Fill in the details below — no commitment required.</p>
+
+        <form id="cfForm" novalidate autocomplete="off">
+          <div class="cf-row">
+            <div class="cf-group">
+              <label class="cf-label" for="cf-name">Full Name <span class="req">*</span></label>
+              <input class="cf-input" id="cf-name" type="text" placeholder="Your full name">
+              <span class="cf-err" id="cfe-name"></span>
+            </div>
+            <div class="cf-group">
+              <label class="cf-label" for="cf-email">Email Address <span class="req">*</span></label>
+              <input class="cf-input" id="cf-email" type="email" placeholder="you@company.com">
+              <span class="cf-err" id="cfe-email"></span>
+            </div>
+          </div>
+
+          <div class="cf-row">
+            <div class="cf-group">
+              <label class="cf-label" for="cf-phone">Phone Number <span class="req">*</span></label>
+              <input class="cf-input" id="cf-phone" type="tel" placeholder="+91 98765 43210" maxlength="15">
+              <span class="cf-err" id="cfe-phone"></span>
+            </div>
+            <div class="cf-group">
+              <label class="cf-label" for="cf-company">Company / Brand</label>
+              <input class="cf-input" id="cf-company" type="text" placeholder="Your company name (optional)">
+              <span class="cf-err" id="cfe-company"></span>
+            </div>
+          </div>
+
+          <div class="cf-row">
+            <div class="cf-group">
+              <label class="cf-label" for="cf-service">Service Needed <span class="req">*</span></label>
+              <select class="cf-select" id="cf-service">
+                <option value="">— Select a service —</option>
+                <option>Website Development</option>
+                <option>Mobile App Development</option>
+                <option>UI/UX Design</option>
+                <option>E-Commerce Store</option>
+                <option>Digital Marketing &amp; SEO</option>
+                <option>AI / Automation Integration</option>
+                <option>Full Product Build (MVP)</option>
+                <option>Other</option>
+              </select>
+              <span class="cf-err" id="cfe-service"></span>
+            </div>
+            <div class="cf-group">
+              <label class="cf-label" for="cf-budget">Estimated Budget <span class="req">*</span></label>
+              <select class="cf-select" id="cf-budget">
+                <option value="">— Select range —</option>
+                <option>Under ₹50,000</option>
+                <option>₹50,000 – ₹1,50,000</option>
+                <option>₹1,50,000 – ₹5,00,000</option>
+                <option>₹5,00,000 – ₹15,00,000</option>
+                <option>₹15,00,000+</option>
+                <option>Not sure yet</option>
+              </select>
+              <span class="cf-err" id="cfe-budget"></span>
+            </div>
+          </div>
+
+          <div class="cf-row full">
+            <div class="cf-group">
+              <label class="cf-label" for="cf-msg">Project Details <span class="req">*</span></label>
+              <textarea class="cf-textarea" id="cf-msg" rows="4" placeholder="Briefly describe your project, goals, and timeline. The more detail, the better we can help you…"></textarea>
+              <span class="cf-err" id="cfe-msg"></span>
+            </div>
+          </div>
+
+          <div class="cf-submit-row">
+            <button type="submit" class="cf-submit" id="cfSubmitBtn">
+              <span id="cfBtnText">Send Message →</span>
+            </button>
+            <p class="cf-privacy">🔒 Your info is safe. We never share or spam. <a href="#">Privacy Policy</a></p>
+          </div>
+        </form>
+
+        <div class="cf-success" id="cfSuccess">
+          <div class="cf-success-icon">✓</div>
+          <h3>Message Received!</h3>
+          <p>Your details have been sent to our team via <strong style="color:#86efac;">email</strong> and <strong style="color:#86efac;">WhatsApp</strong>. We'll get back to you within one business day.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Toast -->
+  <div class="ctf-toast" id="cfToast" role="alert">
+    <span id="cfToastIcon"></span>
+    <span id="cfToastMsg"></span>
+    <button class="ctf-toast-close" onclick="cfHideToast()">✕</button>
+  </div>
+
   <div class="cta-band">
     <div class="cta-text">
       <h2>Ready to Build Something That Wins?</h2>
@@ -1024,6 +1790,444 @@
       </div>
     </div>
   </footer>
+
+<!-- ═══════════════════  CHATBOT WIDGET  ═══════════════════ -->
+<style>
+  /* ── Toggle button ── */
+  #zyn-chat-btn {
+    position: fixed; bottom: 28px; right: 28px; z-index: 9999;
+    width: 60px; height: 60px; border-radius: 50%;
+    background: linear-gradient(135deg,#00c6a7 0%,#00a3e0 100%);
+    border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 6px 28px rgba(0,198,167,.5);
+    transition: transform .2s, box-shadow .2s;
+  }
+  #zyn-chat-btn:hover { transform: scale(1.08); box-shadow: 0 8px 36px rgba(0,198,167,.65); }
+  #zyn-chat-btn svg { transition: transform .3s; }
+  #zyn-chat-btn.open svg.icon-chat { display:none; }
+  #zyn-chat-btn.open svg.icon-close { display:block !important; }
+
+  /* ── Panel ── */
+  #zyn-chat-panel {
+    position: fixed; bottom: 100px; right: 28px; z-index: 9998;
+    width: 360px; max-width: calc(100vw - 40px);
+    height: 520px; max-height: calc(100vh - 130px);
+    background: rgba(10,14,24,.94);
+    border: 1px solid rgba(0,198,167,.22);
+    border-radius: 20px;
+    box-shadow: 0 24px 72px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.04);
+    display: flex; flex-direction: column;
+    transform: translateY(18px) scale(.97); opacity: 0;
+    pointer-events: none;
+    transition: transform .28s cubic-bezier(.34,1.56,.64,1), opacity .22s ease;
+    backdrop-filter: blur(20px);
+    overflow: hidden;
+  }
+  #zyn-chat-panel.open {
+    transform: translateY(0) scale(1); opacity: 1; pointer-events: all;
+  }
+
+  /* ── Header ── */
+  .zyn-hd {
+    padding: 16px 18px; display: flex; align-items: center; gap: 12px;
+    background: linear-gradient(135deg,rgba(0,198,167,.15),rgba(0,163,224,.1));
+    border-bottom: 1px solid rgba(0,198,167,.12);
+    flex-shrink: 0;
+  }
+  .zyn-hd-avatar {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: linear-gradient(135deg,#00c6a7,#00a3e0);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; flex-shrink: 0;
+  }
+  .zyn-hd-info { flex: 1; }
+  .zyn-hd-name { font-size: 14px; font-weight: 700; color: #fff; }
+  .zyn-hd-status { font-size: 11px; color: #00c6a7; display: flex; align-items: center; gap: 5px; margin-top: 2px; }
+  .zyn-hd-status::before {
+    content:''; width:7px; height:7px; border-radius:50%; background:#00c6a7;
+    box-shadow: 0 0 6px #00c6a7; display:inline-block; animation: pulse-dot 1.6s infinite;
+  }
+  @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:.4} }
+  .zyn-close-btn {
+    background: none; border: none; cursor: pointer; color: rgba(255,255,255,.5);
+    padding: 4px; border-radius: 6px; transition: color .15s, background .15s;
+  }
+  .zyn-close-btn:hover { color: #fff; background: rgba(255,255,255,.08); }
+
+  /* ── Messages ── */
+  #zyn-messages {
+    flex: 1; overflow-y: auto; padding: 16px;
+    display: flex; flex-direction: column; gap: 10px;
+    scrollbar-width: thin; scrollbar-color: rgba(0,198,167,.3) transparent;
+  }
+  #zyn-messages::-webkit-scrollbar { width: 4px; }
+  #zyn-messages::-webkit-scrollbar-thumb { background: rgba(0,198,167,.3); border-radius: 2px; }
+
+  .zyn-msg {
+    max-width: 82%; display: flex; flex-direction: column;
+    animation: msgIn .22s ease;
+  }
+  @keyframes msgIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:none} }
+  .zyn-msg.bot { align-self: flex-start; }
+  .zyn-msg.user { align-self: flex-end; }
+  .zyn-bubble {
+    padding: 10px 14px; border-radius: 16px; font-size: 13.5px; line-height: 1.55;
+  }
+  .zyn-msg.bot .zyn-bubble {
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.09);
+    color: rgba(255,255,255,.9);
+    border-bottom-left-radius: 4px;
+  }
+  .zyn-msg.user .zyn-bubble {
+    background: linear-gradient(135deg,#00c6a7,#00a3e0);
+    color: #fff; border-bottom-right-radius: 4px;
+  }
+  .zyn-typing {
+    display: flex; gap: 5px; align-items: center; padding: 12px 14px;
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.09);
+    border-radius: 16px; border-bottom-left-radius: 4px;
+    width: fit-content; align-self: flex-start;
+  }
+  .zyn-typing span {
+    width: 7px; height: 7px; border-radius: 50%; background: rgba(0,198,167,.8);
+    animation: typingBounce 1.2s infinite ease-in-out;
+  }
+  .zyn-typing span:nth-child(2){animation-delay:.2s}
+  .zyn-typing span:nth-child(3){animation-delay:.4s}
+  @keyframes typingBounce { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-7px)} }
+
+  /* ── Quick replies ── */
+  #zyn-quick-wrap {
+    padding: 8px 14px 4px; display: flex; flex-wrap: wrap; gap: 6px;
+    border-top: 1px solid rgba(255,255,255,.06); flex-shrink: 0;
+  }
+  .zyn-quick-btn {
+    background: rgba(0,198,167,.1); border: 1px solid rgba(0,198,167,.3);
+    color: #00c6a7; border-radius: 20px;
+    padding: 5px 12px; font-size: 12px; cursor: pointer;
+    transition: background .15s, transform .15s;
+    white-space: nowrap;
+  }
+  .zyn-quick-btn:hover { background: rgba(0,198,167,.2); transform: translateY(-1px); }
+
+  /* ── Input bar ── */
+  .zyn-input-bar {
+    padding: 10px 14px 14px; display: flex; gap: 8px; flex-shrink: 0;
+  }
+  #zyn-input {
+    flex: 1; background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 24px; padding: 9px 16px;
+    color: #fff; font-size: 13px; outline: none;
+    transition: border-color .2s;
+  }
+  #zyn-input::placeholder { color: rgba(255,255,255,.35); }
+  #zyn-input:focus { border-color: rgba(0,198,167,.5); }
+  #zyn-send-btn {
+    width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+    background: linear-gradient(135deg,#00c6a7,#00a3e0);
+    border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .15s, box-shadow .15s;
+  }
+  #zyn-send-btn:hover { transform: scale(1.08); box-shadow: 0 4px 14px rgba(0,198,167,.4); }
+
+  /* ── WA button ── */
+  .zyn-wa-btn {
+    display: inline-flex; align-items: center; gap: 7px;
+    margin-top: 8px; padding: 8px 14px;
+    background: #25d366; border-radius: 20px;
+    color: #fff; font-size: 12.5px; font-weight: 600;
+    text-decoration: none; transition: opacity .15s;
+  }
+  .zyn-wa-btn:hover { opacity: .88; }
+</style>
+
+<!-- Toggle button -->
+<button id="zyn-chat-btn" aria-label="Open chat">
+  <svg class="icon-chat" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+  </svg>
+  <svg class="icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" style="display:none">
+    <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+  </svg>
+</button>
+
+<!-- Chat panel -->
+<div id="zyn-chat-panel" role="dialog" aria-label="Zynapse AI Assistant">
+  <div class="zyn-hd">
+    <div class="zyn-hd-avatar">🤖</div>
+    <div class="zyn-hd-info">
+      <div class="zyn-hd-name">Zynapse Assistant</div>
+      <div class="zyn-hd-status">Online · Ready to help</div>
+    </div>
+    <button class="zyn-close-btn" id="zyn-close-btn" aria-label="Close chat">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+
+  <div id="zyn-messages"></div>
+
+  <div id="zyn-quick-wrap"></div>
+
+  <div class="zyn-input-bar">
+    <input id="zyn-input" type="text" placeholder="Ask me anything…" autocomplete="off" />
+    <button id="zyn-send-btn" aria-label="Send">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<script>
+(function(){
+  // ── Knowledge base ──────────────────────────────────────────
+  var KB = [
+    {
+      keys: ['hello','hi','hey','good morning','good evening','greetings','howdy','sup'],
+      answer: "Hey there! 👋 Welcome to <strong>Zynapse Systems</strong>. I'm your AI assistant. How can I help you today?",
+      quick: ['Services','Pricing','Process','Contact Us']
+    },
+    {
+      keys: ['what do you do','what is zynapse','about zynapse','who are you','tell me about','what is datazync'],
+      answer: "Zynapse Systems is a <strong>technology & consulting company</strong> that helps businesses grow through <strong>AI-powered solutions, custom software, data analytics, and digital transformation</strong>. We turn complex challenges into elegant, scalable products. 🚀",
+      quick: ['Our Services','How We Work','Meet the Team']
+    },
+    {
+      keys: ['services','offer','provide','what can you build','solutions','capabilities'],
+      answer: "We offer a wide range of tech services:\n\n🤖 <strong>AI & Machine Learning</strong> — intelligent automation & prediction\n📊 <strong>Data Analytics</strong> — dashboards, BI & insights\n📱 <strong>Mobile App Development</strong> — iOS & Android\n🌐 <strong>Web Development</strong> — full-stack web apps & SaaS\n☁️ <strong>Cloud & DevOps</strong> — AWS, GCP, Azure\n🔒 <strong>Cybersecurity</strong> — audits & pen testing\n\nNeed details on any of these?",
+      quick: ['AI & ML','Mobile Apps','Web Dev','Data Analytics']
+    },
+    {
+      keys: ['ai','machine learning','artificial intelligence','ml','automation','predict'],
+      answer: "Our <strong>AI & ML team</strong> builds:\n• Predictive analytics models\n• NLP chatbots & document processors\n• Computer vision pipelines\n• Recommendation engines\n• Process automation with LLMs\n\nWe've delivered AI solutions across finance, healthcare, retail & logistics. 🤖",
+      quick: ['See Pricing','Book Free Call']
+    },
+    {
+      keys: ['mobile','android','ios','app','flutter','react native'],
+      answer: "We build <strong>high-performance mobile apps</strong> for iOS & Android using Flutter and React Native. From MVPs to enterprise-grade applications — we handle UX design, development, QA & App Store deployment. 📱",
+      quick: ['Timeline','Pricing','Book Free Call']
+    },
+    {
+      keys: ['web','website','web app','saas','frontend','backend','full stack','full-stack'],
+      answer: "We craft <strong>modern web applications</strong> — from marketing sites to complex SaaS platforms. Our stack includes React, Next.js, Node.js, Django, and cloud-native architectures. ⚡",
+      quick: ['Timeline','Pricing','Get a Quote']
+    },
+    {
+      keys: ['data','analytics','dashboard','bi','business intelligence','visualization','power bi','tableau'],
+      answer: "<strong>Data Analytics</strong> is one of our core strengths. We build:\n• Real-time dashboards\n• ETL pipelines\n• Business intelligence reports\n• Predictive models\n• Data warehousing solutions 📊\n\nWe work with Power BI, Tableau, Looker & custom solutions.",
+      quick: ['Pricing','Book Free Call']
+    },
+    {
+      keys: ['cloud','aws','azure','gcp','devops','kubernetes','docker','infrastructure'],
+      answer: "Our <strong>Cloud & DevOps</strong> team handles:\n• Cloud migration (AWS / Azure / GCP)\n• CI/CD pipelines\n• Kubernetes & container orchestration\n• Infrastructure as Code (Terraform)\n• Cost optimization & monitoring ☁️",
+      quick: ['Pricing','Contact Us']
+    },
+    {
+      keys: ['price','pricing','cost','how much','budget','quote','rates','charge','fee'],
+      answer: "Our pricing depends on the scope and complexity of your project. As a guide:\n\n💡 <strong>Starter projects</strong> — from ₹50,000\n🚀 <strong>Mid-size products</strong> — ₹2L – ₹10L\n🏢 <strong>Enterprise solutions</strong> — custom quote\n\nBook a <strong>free 30-min consultation</strong> and we'll give you an accurate estimate within 24 hours!",
+      quick: ['Book Free Call','View Services']
+    },
+    {
+      keys: ['free','consultation','demo','call','meeting','schedule','appointment','book'],
+      answer: "Absolutely! We offer a <strong>FREE 30-minute strategy call</strong> with our experts — no strings attached. Just scroll up and fill the <strong>Contact Form</strong> on this page, or reach us directly on WhatsApp. 📞",
+      quick: ['Contact Form','WhatsApp Us']
+    },
+    {
+      keys: ['process','how do you work','workflow','methodology','steps','deliver','how it works'],
+      answer: "Our proven <strong>8-step delivery process</strong>:\n\n1️⃣ Discovery & Requirements\n2️⃣ Strategy & Planning\n3️⃣ Design & Prototyping\n4️⃣ Development Sprints\n5️⃣ QA & Testing\n6️⃣ Deployment\n7️⃣ Monitoring\n8️⃣ Ongoing Support\n\nTransparency & communication at every step! 🎯",
+      quick: ['See Deliver Page','Pricing','Book Free Call']
+    },
+    {
+      keys: ['timeline','time','how long','duration','deadline','delivery','turnaround','weeks'],
+      answer: "Typical timelines:\n\n⚡ <strong>Landing page / MVP</strong> — 1–2 weeks\n📱 <strong>Mobile app</strong> — 4–10 weeks\n🌐 <strong>Full web app / SaaS</strong> — 6–16 weeks\n🤖 <strong>AI/ML solution</strong> — 4–12 weeks\n\nAll projects get a dedicated PM + weekly progress updates.",
+      quick: ['Pricing','Book Free Call']
+    },
+    {
+      keys: ['contact','reach','email','phone','whatsapp','location','address','where are you'],
+      answer: "Reach us anytime:\n\n📧 <strong>Email:</strong> ceo@datazync.com\n📱 <strong>WhatsApp:</strong> +91 80721 17912\n🌐 Or fill the <strong>Contact Form</strong> on this page — we respond within 2 business hours!",
+      quick: ['Contact Form','WhatsApp Us','Book Free Call']
+    },
+    {
+      keys: ['team','founder','ceo','who built','developers','engineers','experts','staff'],
+      answer: "Zynapse is built by a passionate team of <strong>senior engineers, designers, and AI specialists</strong> with 10+ years of combined industry experience. Our founder & CEO leads with a vision of democratizing enterprise technology for growing businesses. 👥\n\nVisit our <a href='team.html' style='color:#00c6a7;text-decoration:underline'>Team page</a> to meet everyone!",
+      quick: ['Our Services','Book Free Call']
+    },
+    {
+      keys: ['career','job','hiring','internship','work with you','join','opening','vacancy','apply'],
+      answer: "We're always looking for talented people! 🌟 Check out our <a href='careers.html' style='color:#00c6a7;text-decoration:underline'>Careers page</a> for current openings in engineering, design, data science, and more. We offer remote & hybrid roles.",
+      quick: ['View Careers','Contact Us']
+    },
+    {
+      keys: ['technology','tech stack','languages','frameworks','tools','built with'],
+      answer: "Our tech arsenal includes:\n\n<strong>Frontend:</strong> React, Next.js, Vue, Flutter\n<strong>Backend:</strong> Node.js, Python, Django, Go\n<strong>AI/ML:</strong> TensorFlow, PyTorch, LangChain, OpenAI\n<strong>Cloud:</strong> AWS, GCP, Azure\n<strong>DB:</strong> PostgreSQL, MongoDB, Redis, BigQuery\n<strong>DevOps:</strong> Docker, K8s, Terraform, GitHub Actions ⚙️",
+      quick: ['Our Services','Book Free Call']
+    },
+    {
+      keys: ['support','maintenance','after','post','warranty','bug fix','update'],
+      answer: "Yes! All our projects include:\n\n✅ <strong>30-day free bug-fix warranty</strong> post-launch\n🔧 Flexible monthly <strong>maintenance retainers</strong>\n📞 Dedicated support channel\n\nWe don't just build and vanish — we're your long-term tech partner. 🤝",
+      quick: ['Pricing','Contact Us']
+    },
+    {
+      keys: ['confidential','nda','privacy','security','data safe','secure'],
+      answer: "Your privacy is our priority. ✅ We sign <strong>NDAs before any project discussion</strong>, follow ISO-grade data handling practices, and never share client information. All code & IP is fully owned by you post-delivery.",
+      quick: ['Book Free Call','Contact Us']
+    },
+    {
+      keys: ['refund','money back','guarantee','assurance'],
+      answer: "We work in <strong>milestone-based payment cycles</strong> — you only pay when you're satisfied with each phase. This keeps risk minimal and ensures we stay aligned with your vision throughout the project. 🛡️",
+      quick: ['Our Process','Contact Us']
+    }
+  ];
+
+  var FALLBACK = {
+    answer: "Great question! I don't have a specific answer ready for that. 🤔 But our team definitely can help — reach us directly:",
+    withWA: true,
+    quick: ['Services','Pricing','Book Free Call','Contact Us']
+  };
+
+  var QUICK_ACTIONS = {
+    'Services': 'services',
+    'Pricing': 'price',
+    'Process': 'process',
+    'Contact Us': 'contact',
+    'Book Free Call': 'book',
+    'Our Services': 'services',
+    'How We Work': 'process',
+    'Meet the Team': 'team',
+    'AI & ML': 'ai machine learning',
+    'Mobile Apps': 'mobile app',
+    'Web Dev': 'web app',
+    'Data Analytics': 'data analytics',
+    'Timeline': 'timeline how long',
+    'Get a Quote': 'price quote',
+    'See Deliver Page': null, // special: navigate
+    'View Careers': null,
+    'Contact Form': null,
+    'WhatsApp Us': null
+  };
+
+  var panel = document.getElementById('zyn-chat-panel');
+  var btn   = document.getElementById('zyn-chat-btn');
+  var msgs  = document.getElementById('zyn-messages');
+  var input = document.getElementById('zyn-input');
+  var quickWrap = document.getElementById('zyn-quick-wrap');
+  var opened = false;
+
+  function togglePanel() {
+    opened = !opened;
+    panel.classList.toggle('open', opened);
+    btn.classList.toggle('open', opened);
+    if (opened && msgs.children.length === 0) {
+      setTimeout(function(){ addBotMsg("Hi! 👋 I'm the <strong>Zynapse AI Assistant</strong>. Ask me anything about our services, pricing, process, careers, or just say hi!", ['Services','Pricing','Process','Contact Us']); }, 350);
+    }
+    if (opened) input.focus();
+  }
+
+  btn.addEventListener('click', togglePanel);
+  document.getElementById('zyn-close-btn').addEventListener('click', function(e){ e.stopPropagation(); togglePanel(); });
+
+  function addUserMsg(text) {
+    var d = document.createElement('div');
+    d.className = 'zyn-msg user';
+    d.innerHTML = '<div class="zyn-bubble">' + escHtml(text) + '</div>';
+    msgs.appendChild(d);
+    scrollBottom();
+  }
+
+  function addBotMsg(html, quickReplies) {
+    var typing = document.createElement('div');
+    typing.className = 'zyn-typing';
+    typing.innerHTML = '<span></span><span></span><span></span>';
+    msgs.appendChild(typing);
+    scrollBottom();
+
+    setTimeout(function(){
+      typing.remove();
+      var d = document.createElement('div');
+      d.className = 'zyn-msg bot';
+      var htmlFormatted = html.replace(/\n/g, '<br>');
+      d.innerHTML = '<div class="zyn-bubble">' + htmlFormatted + '</div>';
+      msgs.appendChild(d);
+      if (quickReplies && quickReplies.length) setQuickReplies(quickReplies);
+      scrollBottom();
+    }, 900 + Math.random()*400);
+  }
+
+  function setQuickReplies(list) {
+    quickWrap.innerHTML = '';
+    list.forEach(function(label){
+      var b = document.createElement('button');
+      b.className = 'zyn-quick-btn';
+      b.textContent = label;
+      b.addEventListener('click', function(){ handleQuickAction(label); });
+      quickWrap.appendChild(b);
+    });
+  }
+
+  function handleQuickAction(label) {
+    if (label === 'See Deliver Page')  { window.location.href='deliver.html'; return; }
+    if (label === 'View Careers')      { window.location.href='careers.html'; return; }
+    if (label === 'Contact Form')      { togglePanel(); document.getElementById('contact').scrollIntoView({behavior:'smooth'}); return; }
+    if (label === 'WhatsApp Us')       { window.open('https://wa.me/918072117912','_blank'); return; }
+    var query = QUICK_ACTIONS[label] || label.toLowerCase();
+    addUserMsg(label);
+    quickWrap.innerHTML = '';
+    processQuery(query);
+  }
+
+  function processQuery(text) {
+    var t = text.toLowerCase();
+    for (var i = 0; i < KB.length; i++) {
+      var entry = KB[i];
+      for (var j = 0; j < entry.keys.length; j++) {
+        if (t.indexOf(entry.keys[j]) !== -1) {
+          var html = entry.answer;
+          if (entry.withWA) html += makeWALink();
+          addBotMsg(html, entry.quick || []);
+          return;
+        }
+      }
+    }
+    // fallback
+    var html = FALLBACK.answer + (FALLBACK.withWA ? makeWALink() : '');
+    addBotMsg(html, FALLBACK.quick);
+  }
+
+  function makeWALink() {
+    return '<br><br><a href="https://wa.me/918072117912" target="_blank" class="zyn-wa-btn">' +
+           '<svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>' +
+           ' Chat on WhatsApp</a>';
+  }
+
+  function send() {
+    var text = input.value.trim();
+    if (!text) return;
+    input.value = '';
+    quickWrap.innerHTML = '';
+    addUserMsg(text);
+    processQuery(text);
+  }
+
+  input.addEventListener('keydown', function(e){ if(e.key==='Enter') send(); });
+  document.getElementById('zyn-send-btn').addEventListener('click', send);
+
+  function scrollBottom() {
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function escHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+})();
+</script>
+<!-- ══════════════════════════════════════════════════════════ -->
 
 </body>
 </html>

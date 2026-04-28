@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx serve *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/careers.html)",
+      "Bash(curl -L \"https://i.postimg.cc/HWy2zBz3/zynapse-founder-ceo.png\" -o \"/Users/rajuvani/VSCode/Hello/public/images/zynapse_founder_ceo.png\")",
+      "Bash(curl -sL -o /dev/null -w \"%{http_code}\" http://localhost:3000/index.html)",
+      "Bash(curl -L \"https://i.postimg.cc/vBHmBqBg/Chat-GPT-Image-Apr-28-2026-05-50-20-AM.png\" -o \"/Users/rajuvani/VSCode/Hello/public/images/zynapse_logo.png\")",
+      "Bash(lsof -ti:3000)",
+      "Bash(xargs kill *)"
+    ]
+  }
+}
