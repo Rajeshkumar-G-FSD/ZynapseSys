@@ -45,7 +45,7 @@ input, select, textarea, button {
    NAV — Apple dark frosted glass (universal)
 ═══════════════════════════════════════════════ */
 nav {
-  height: 52px !important;
+  height: 68px !important;
   padding: 0 52px !important;
   background: rgba(18,18,18,0.86) !important;
   backdrop-filter: saturate(180%) blur(20px) !important;
@@ -53,6 +53,47 @@ nav {
   border-bottom: 1px solid rgba(255,255,255,0.09) !important;
   display: flex !important;
   align-items: center !important;
+}
+
+/* ── Logo — responsive sizing + blend mode ── */
+.logo-img {
+  height: clamp(44px, 5.5vw, 72px) !important;
+  width: auto !important;
+  object-fit: contain !important;
+  display: block !important;
+  max-width: 200px !important;
+}
+
+/* Footer logo — slightly smaller but still responsive */
+.footer-logo-img {
+  height: clamp(36px, 4vw, 56px) !important;
+  width: auto !important;
+  object-fit: contain !important;
+  display: block !important;
+  max-width: 160px !important;
+  margin-bottom: 16px !important;
+}
+
+/* Logo link — no background so transparent PNG shows cleanly */
+.logo-link,
+a:has(> .footer-logo-img) {
+  background: transparent !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  nav { height: 60px !important; padding: 0 32px !important; }
+  .logo-img { height: clamp(38px, 6vw, 56px) !important; }
+  .footer-logo-img { height: clamp(32px, 5vw, 48px) !important; }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  nav { height: 56px !important; padding: 0 20px !important; }
+  .logo-img { height: 40px !important; max-width: 140px !important; }
+  .footer-logo-img { height: 34px !important; max-width: 120px !important; }
 }
 
 .nav-links a {
