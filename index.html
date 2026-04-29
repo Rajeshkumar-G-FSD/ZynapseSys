@@ -1047,14 +1047,15 @@
       box-shadow: 0 0 0 3px rgba(124,111,252,0.1);
     }
 
-    .cf-input.v-ok, .cf-select.v-ok, .cf-textarea.v-ok {
-      border-color: rgba(34,197,94,0.5) !important;
-      background: rgba(34,197,94,0.04) !important;
+    .cf-input.v-ok, .cf-select.v-ok, .cf-textarea.v-ok,
+    .iti__tel-input.v-ok {
+      border-color: rgba(52,199,89,0.55) !important;
+      background: rgba(52,199,89,0.04) !important;
     }
-
-    .cf-input.v-err, .cf-select.v-err, .cf-textarea.v-err {
-      border-color: rgba(248,113,113,0.55) !important;
-      background: rgba(248,113,113,0.04) !important;
+    .cf-input.v-err, .cf-select.v-err, .cf-textarea.v-err,
+    .iti__tel-input.v-err {
+      border-color: rgba(255,59,48,0.55) !important;
+      background: rgba(255,59,48,0.04) !important;
     }
 
     .cf-select { cursor: pointer; }
@@ -1116,7 +1117,9 @@
       color: #f0f0f8 !important;
       font-family: 'Inter', sans-serif !important;
       font-size: 0.9rem !important;
-      padding: 13px 16px 13px 90px !important;
+      padding-top: 13px !important;
+      padding-right: 16px !important;
+      padding-bottom: 13px !important;
       outline: none !important;
       width: 100% !important;
       transition: border-color 0.25s, background 0.25s, box-shadow 0.25s !important;
@@ -1127,8 +1130,7 @@
       background: rgba(124,111,252,0.06) !important;
       box-shadow: 0 0 0 3px rgba(124,111,252,0.1) !important;
     }
-    .iti__tel-input.v-ok  { border-color: rgba(34,197,94,0.5) !important; background: rgba(34,197,94,0.04) !important; }
-    .iti__tel-input.v-err { border-color: rgba(248,113,113,0.55) !important; background: rgba(248,113,113,0.04) !important; }
+    /* iti states handled by shared .v-ok / .v-err above */
     .iti__flag-container { top: 0; bottom: 0; }
     .iti__selected-flag {
       background: rgba(255,255,255,0.05) !important;
@@ -1155,14 +1157,42 @@
     .iti__dial-code { color: rgba(136,136,170,0.7) !important; font-size: 0.82rem !important; }
     .iti__divider { border-bottom-color: rgba(255,255,255,0.08) !important; }
 
+    /* ── Apple-style inline field messages ── */
     .cf-err {
       font-size: 0.72rem;
-      color: #f87171;
-      min-height: 14px;
+      font-weight: 400;
+      letter-spacing: 0.01em;
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 5px;
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      margin-top: 0;
+      transition: max-height 0.22s ease, opacity 0.18s ease, margin-top 0.18s ease;
     }
+    .cf-err.show {
+      max-height: 40px;
+      opacity: 1;
+      margin-top: 5px;
+    }
+    .cf-err.is-err { color: #ff3b30; }
+    .cf-err.is-ok  { color: #34c759; }
+
+    /* Submit spinner */
+    .cf-btn-inner { display: flex; align-items: center; gap: 9px; }
+    .cf-spinner {
+      display: none;
+      width: 16px; height: 16px;
+      border: 2.5px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      flex-shrink: 0;
+      animation: cfSpin 0.65s linear infinite;
+    }
+    .cf-submit.loading .cf-spinner { display: block; }
+    .cf-submit.loading { opacity: 0.72; cursor: not-allowed; }
+    @keyframes cfSpin { to { transform: rotate(360deg); } }
 
     /* Submit row */
     .cf-submit-row {
@@ -1209,44 +1239,70 @@
 
     .cf-privacy a { color: var(--accent2); text-decoration: none; }
 
-    /* Success state */
+    /* ── Success state — Apple level ── */
     .cf-success {
       display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       text-align: center;
-      padding: 48px 24px;
+      padding: 56px 32px;
+      gap: 0;
+      flex: 1;
     }
+    .cf-success.show { display: flex; }
 
-    .cf-success.show { display: block; }
-
-    .cf-success-icon {
+    .cf-success-ring {
       width: 80px; height: 80px;
-      border-radius: 50%;
-      background: rgba(34,197,94,0.1);
-      border: 2px solid rgba(34,197,94,0.3);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 2.2rem;
-      margin: 0 auto 24px;
-      animation: popIn 0.5s cubic-bezier(0.22,1,0.36,1);
+      margin: 0 auto 28px;
+      animation: popIn 0.55s cubic-bezier(0.22,1,0.36,1);
     }
-
+    .cf-success-ring svg { width: 80px; height: 80px; }
+    .cf-success-ring .ring-circle {
+      stroke-dasharray: 166;
+      stroke-dashoffset: 166;
+      animation: drawRing 0.5s ease 0.15s forwards;
+    }
+    .cf-success-ring .ring-check {
+      stroke-dasharray: 48;
+      stroke-dashoffset: 48;
+      animation: drawCheck 0.35s ease 0.55s forwards;
+    }
+    @keyframes drawRing  { to { stroke-dashoffset: 0; } }
+    @keyframes drawCheck { to { stroke-dashoffset: 0; } }
     @keyframes popIn {
-      from { transform: scale(0.5); opacity: 0; }
+      from { transform: scale(0.6); opacity: 0; }
       to   { transform: scale(1);   opacity: 1; }
     }
 
-    .cf-success h3 {
-      font-size: 1.5rem;
-      font-weight: 800;
+    .cf-success-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #f0f0f8;
       margin-bottom: 12px;
+      letter-spacing: -0.02em;
     }
-
-    .cf-success p {
-      color: var(--muted);
-      font-size: 0.9rem;
-      line-height: 1.65;
-      max-width: 340px;
-      margin: 0 auto;
+    .cf-success-msg {
+      color: rgba(136,136,170,0.85);
+      font-size: 0.88rem;
+      line-height: 1.7;
+      max-width: 320px;
+      margin: 0 auto 28px;
     }
+    .cf-success-msg strong { color: rgba(240,240,248,0.9); }
+    .cf-again-btn {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--accent2);
+      background: none;
+      border: 1px solid rgba(62,207,207,0.3);
+      border-radius: 100px;
+      padding: 7px 20px;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .cf-again-btn:hover { background: rgba(62,207,207,0.06); }
 
     /* Toast */
     .ctf-toast {
@@ -1558,172 +1614,220 @@
 
   <script>
     /* ══════════════════════════════════════
-       CONTACT FORM VALIDATION
+       CONTACT FORM — Apple-style validation
     ══════════════════════════════════════ */
     (function () {
-      var rules = {
-        'cf-name':    { req: true,  test: function(v){ return /^[A-Za-z\s'.\-]{2,60}$/.test(v.trim()); },
-                        ok:'✓ Looks great!', errors:{ empty:'Your name is required.', invalid:'Only letters and spaces allowed (min 2 chars).' }},
-        'cf-email':   { req: true,  test: function(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()); },
-                        ok:'✓ Valid email.',  errors:{ empty:'Email address is required.', invalid:'Enter a valid email — e.g. you@company.com' }},
-        'cf-phone':   { req: true,  test: function(v){ return /^[\+]?[\d\s\-\(\)]{7,15}$/.test(v.trim()); },
-                        ok:'✓ Valid number.', errors:{ empty:'Phone number is required.', invalid:'Enter a valid phone number (7–15 digits).' }},
-        'cf-service': { req: true,  test: function(v){ return v !== ''; },
-                        ok:'✓ Service selected.', errors:{ empty:'Please select a service.' }},
-        'cf-budget':  { req: true,  test: function(v){ return v !== ''; },
-                        ok:'✓ Budget noted.',     errors:{ empty:'Please select a budget range.' }},
-        'cf-timeline':{ req: true,  test: function(v){ return v !== ''; },
-                        ok:'✓ Timeline noted.',   errors:{ empty:'Please select a project timeline.' }},
-        'cf-msg':     { req: true,  test: function(v){ return v.trim().length >= 20; },
-                        ok:'✓ Message noted.',   errors:{ empty:'Please describe your project.', invalid:'Please write at least 20 characters.' }}
+
+      /* ── Field state helper ── */
+      var ICON_ERR  = '<svg width="11" height="11" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5.5" stroke="#ff3b30"/><path d="M6 3.5v3M6 8.5v.01" stroke="#ff3b30" stroke-width="1.3" stroke-linecap="round"/></svg> ';
+      var ICON_OK   = '<svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#34c759" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg> ';
+
+      function setField(id, state, msg) {
+        var el  = document.getElementById(id);
+        var err = document.getElementById('cfe-' + id.replace('cf-', ''));
+        if (!el) return;
+        el.classList.remove('v-ok', 'v-err');
+        if (!err) return;
+        err.classList.remove('show', 'is-err', 'is-ok');
+        if (state === 'err') {
+          el.classList.add('v-err');
+          err.classList.add('show', 'is-err');
+          err.innerHTML = ICON_ERR + msg;
+        } else if (state === 'ok') {
+          el.classList.add('v-ok');
+          err.classList.add('show', 'is-ok');
+          err.innerHTML = ICON_OK + msg;
+        }
+      }
+      window.cfSetField = setField;
+
+      /* ── Validation rules ── */
+      var RULES = {
+        'cf-name': function(v) {
+          if (!v || !v.trim()) return 'Your full name is required.';
+          if (!/^[A-Za-z\s'.'\-]{3,60}$/.test(v.trim())) return 'Letters and spaces only (min 3 characters).';
+          return null;
+        },
+        'cf-email': function(v) {
+          if (!v || !v.trim()) return 'Email address is required.';
+          if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim())) return 'Enter a valid email — e.g. you@company.com';
+          return null;
+        },
+        'cf-phone': function(v) {
+          if (!v || !v.trim()) return 'Phone number is required.';
+          var iti = window._cfIti;
+          if (iti && !iti.isValidNumber()) return 'Enter a valid number for the selected country.';
+          return null;
+        },
+        'cf-service': function(v) {
+          if (!v) return 'Please select a service.';
+          return null;
+        },
+        'cf-budget': function(v) {
+          if (!v) return 'Please select a budget range.';
+          return null;
+        },
+        'cf-timeline': function(v) {
+          if (!v) return 'Please select a project timeline.';
+          return null;
+        },
+        'cf-msg': function(v) {
+          if (!v || !v.trim()) return 'Please describe your project.';
+          if (v.trim().length < 20) return 'Please write at least 20 characters (' + v.trim().length + '/20).';
+          return null;
+        }
       };
 
-      function getErr(id, val) {
-        var r = rules[id]; if (!r) return null;
-        if (!val || val.trim() === '') return r.errors.empty || 'Required.';
-        if (id === 'cf-msg' && val.trim().length < 20) return r.errors.invalid;
-        if (!r.test(val)) return r.errors.invalid || 'Invalid value.';
-        return null;
-      }
-
-      function setState(id, state, msg) {
-        var el  = document.getElementById(id);
-        var err = document.getElementById('cfe-' + id.replace('cf-',''));
-        if (!el) return;
-        el.classList.remove('v-ok','v-err');
-        if (!err) return;
-        if (state === 'ok')  { el.classList.add('v-ok');  err.style.color='#86efac'; err.textContent = msg || ''; }
-        if (state === 'err') { el.classList.add('v-err'); err.style.color='#f87171'; err.textContent = '⚠ ' + msg; }
-        if (!state)          { err.textContent = ''; }
-      }
+      var OK_MSG = {
+        'cf-name': 'Looks great!', 'cf-email': 'Valid email.', 'cf-phone': 'Valid number.',
+        'cf-service': 'Service selected.', 'cf-budget': 'Budget noted.',
+        'cf-timeline': 'Timeline noted.', 'cf-msg': 'Message noted.'
+      };
 
       function validateField(id) {
         var el = document.getElementById(id); if (!el) return true;
-        var e  = getErr(id, el.value);
-        if (e) { setState(id, 'err', e); return false; }
-        setState(id, 'ok', rules[id] ? rules[id].ok : '✓');
+        var err = RULES[id] ? RULES[id](el.value) : null;
+        if (err) { setField(id, 'err', err); return false; }
+        setField(id, 'ok', OK_MSG[id] || '');
         return true;
       }
 
-      Object.keys(rules).forEach(function(id) {
+      var ALL_FIELDS = Object.keys(RULES);
+      ALL_FIELDS.forEach(function(id) {
         var el = document.getElementById(id); if (!el) return;
-        el.addEventListener('blur',  function(){ if(el.value) validateField(id); });
-        el.addEventListener('input', function(){ if(el.classList.contains('v-ok')||el.classList.contains('v-err')) validateField(id); });
+        el.addEventListener('blur',   function() { if (el.value || el.classList.contains('v-err')) validateField(id); });
+        el.addEventListener('input',  function() { if (el.classList.contains('v-ok') || el.classList.contains('v-err')) validateField(id); });
+        el.addEventListener('change', function() { if (el.classList.contains('v-ok') || el.classList.contains('v-err')) validateField(id); });
       });
 
-      /* Toast */
+      /* ── File upload validation ── */
+      (function() {
+        var hidden  = document.getElementById('cf-file-hidden');
+        var display = document.getElementById('cf-file-display');
+        var errEl   = document.getElementById('cfe-file');
+        if (!hidden || !display) return;
+        hidden.addEventListener('change', function() {
+          if (!this.files || !this.files.length) { display.value = ''; return; }
+          var f = this.files[0];
+          if (!/\.(pdf|doc|docx|png|jpg|jpeg|zip|pptx|xlsx)$/i.test(f.name)) {
+            display.value = ''; hidden.value = '';
+            if (errEl) { errEl.classList.add('show','is-err'); errEl.innerHTML = ICON_ERR + 'File type not allowed. Use PDF, DOC, PNG, ZIP, or XLSX.'; }
+            return;
+          }
+          if (f.size > 5 * 1024 * 1024) {
+            display.value = ''; hidden.value = '';
+            if (errEl) { errEl.classList.add('show','is-err'); errEl.innerHTML = ICON_ERR + 'File exceeds 5 MB — please choose a smaller file.'; }
+            return;
+          }
+          if (errEl) errEl.classList.remove('show','is-err','is-ok');
+          var kb = (f.size / 1024).toFixed(0);
+          display.value = f.name + '  (' + (kb > 1024 ? (kb/1024).toFixed(1)+' MB' : kb+' KB') + ')';
+        });
+      })();
+
+      /* ── Toast ── */
       var tTimer;
       function cfShowToast(type, msg) {
-        var t = document.getElementById('cfToast');
-        var icons = { ok:'✅', err:'❌', warn:'⚠️' };
-        document.getElementById('cfToastIcon').textContent = icons[type]||'💬';
+        var t = document.getElementById('cfToast'); if (!t) return;
+        document.getElementById('cfToastIcon').textContent = { ok:'✅', err:'❌', warn:'⚠️' }[type] || '💬';
         document.getElementById('cfToastMsg').textContent  = msg;
-        t.className = 'ctf-toast t-' + (type==='ok'?'ok':type==='err'?'err':'warn') + ' show';
+        t.className = 'ctf-toast t-' + (type === 'ok' ? 'ok' : type === 'err' ? 'err' : 'warn') + ' show';
         clearTimeout(tTimer);
-        tTimer = setTimeout(cfHideToast, 5000);
+        tTimer = setTimeout(function(){ t.classList.remove('show'); }, 5000);
       }
-      window.cfHideToast = function(){
-        document.getElementById('cfToast').classList.remove('show');
+      window.cfHideToast = function() {
+        var t = document.getElementById('cfToast'); if (t) t.classList.remove('show');
       };
 
-      /* Submit */
-      document.getElementById('cfForm').addEventListener('submit', function(e) {
+      /* ── Submit handler ── */
+      var form = document.getElementById('cfForm');
+      var btn  = document.getElementById('cfSubmitBtn');
+      if (!form || !btn) return;
+
+      form.addEventListener('submit', function(e) {
         e.preventDefault();
-        var allOk = Object.keys(rules).map(validateField).every(Boolean);
-        if (!allOk) {
-          var first = document.querySelector('#cfForm .v-err');
-          if (first) first.scrollIntoView({ behavior:'smooth', block:'center' });
-          cfShowToast('err', 'Please fix the errors highlighted in the form.');
+
+        var valid = ALL_FIELDS.map(validateField).every(Boolean);
+        if (!valid) {
+          var firstErr = document.querySelector('#cfForm .v-err');
+          if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
           return;
         }
 
-        var btn = document.getElementById('cfSubmitBtn');
-        var txt = document.getElementById('cfBtnText');
         btn.disabled = true;
-        txt.textContent = 'Sending…';
+        btn.classList.add('loading');
+        document.getElementById('cfBtnText').textContent = 'Sending…';
 
-        /* Collect field values */
-        var name    = document.getElementById('cf-name').value.trim();
-        var email   = document.getElementById('cf-email').value.trim();
-        var phone   = (window._cfIti ? window._cfIti.getNumber() : document.getElementById('cf-phone').value.trim());
-        var company = document.getElementById('cf-company').value.trim();
+        var name     = document.getElementById('cf-name').value.trim();
+        var email    = document.getElementById('cf-email').value.trim();
+        var phone    = window._cfIti ? window._cfIti.getNumber() : document.getElementById('cf-phone').value.trim();
+        var company  = document.getElementById('cf-company').value.trim();
         var service  = document.getElementById('cf-service').value;
         var budget   = document.getElementById('cf-budget').value;
         var timeline = document.getElementById('cf-timeline').value;
         var source   = document.getElementById('cf-source').value;
         var msg      = document.getElementById('cf-msg').value.trim();
-        var fileInput = document.getElementById('cf-file-hidden');
-        var fileName  = (fileInput.files && fileInput.files.length) ? fileInput.files[0].name : '';
+        var fi       = document.getElementById('cf-file-hidden');
+        var fileName = fi && fi.files && fi.files.length ? fi.files[0].name : '';
 
-        /* ── 1. Send email via FormSubmit.co (AJAX) ── */
         fetch('https://formsubmit.co/ajax/hello@datazync.com', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify({
             _subject: '🚀 New Consultation Request — DataZync',
-            _template: 'table',
-            _captcha: 'false',
-            Name: name,
-            Email: email,
-            Phone: phone,
-            Company: company || '—',
-            Service: service,
-            Budget: budget,
-            Timeline: timeline,
-            Source: source || '—',
-            Attachment: fileName || '—',
-            Message: msg
+            _template: 'table', _captcha: 'false',
+            Name: name, Email: email, Phone: phone,
+            Company: company || '—', Service: service,
+            Budget: budget, Timeline: timeline,
+            Source: source || '—', Attachment: fileName || '—', Message: msg
           })
         })
-        .catch(function() {})  /* silent fail — WhatsApp still fires */
+        .catch(function() {
+          cfShowToast('warn', 'Email delivery failed — but your WhatsApp message was sent.');
+        })
         .finally(function() {
-
-          /* ── 2. Open WhatsApp with pre-filled message ── */
           var waText =
             '🚀 *New Consultation Request — DataZync*\n\n' +
-            '👤 *Name:* ' + name + '\n' +
-            '📧 *Email:* ' + email + '\n' +
-            '📞 *Phone:* ' + phone + '\n' +
-            '🏢 *Company:* ' + (company || '—') + '\n' +
-            '🛠 *Service:* ' + service + '\n' +
-            '💰 *Budget:* ' + budget + '\n' +
-            '⏱ *Timeline:* ' + timeline + '\n' +
+            '👤 *Name:* ' + name + '\n📧 *Email:* ' + email + '\n📞 *Phone:* ' + phone + '\n' +
+            '🏢 *Company:* ' + (company || '—') + '\n🛠 *Service:* ' + service + '\n' +
+            '💰 *Budget:* ' + budget + '\n⏱ *Timeline:* ' + timeline + '\n' +
             '📣 *Source:* ' + (source || '—') + '\n' +
             (fileName ? '📎 *File:* ' + fileName + ' (please send via WhatsApp)\n' : '') +
             '\n📝 *Message:*\n' + msg;
 
           setTimeout(function() {
-            window.open(
-              'https://wa.me/918072117912?text=' + encodeURIComponent(waText),
-              '_blank'
-            );
+            window.open('https://wa.me/918072117912?text=' + encodeURIComponent(waText), '_blank');
           }, 600);
 
-          /* ── 3. Show success state ── */
-          document.getElementById('cfForm').style.display = 'none';
-          document.getElementById('cfSuccess').classList.add('show');
-          cfShowToast('ok', "Sent! Check your WhatsApp — we'll reply within one business day.");
+          form.style.display = 'none';
+          var suc = document.getElementById('cfSuccess');
+          if (suc) suc.classList.add('show');
         });
       });
-    })();
 
-    /* File input — show filename in text field */
-    (function(){
-      var hidden  = document.getElementById('cf-file-hidden');
-      var display = document.getElementById('cf-file-display');
-      if (!hidden || !display) return;
-      hidden.addEventListener('change', function(){
-        if (!this.files || !this.files.length) { display.value = ''; return; }
-        var f = this.files[0];
-        if (f.size > 5 * 1024 * 1024) {
-          display.value = '';
-          display.placeholder = '⚠ File exceeds 5 MB — please choose a smaller file';
-          hidden.value = '';
-        } else {
-          var kb = (f.size / 1024).toFixed(0);
-          display.value = f.name + '  (' + (kb > 1024 ? (kb/1024).toFixed(1)+' MB' : kb+' KB') + ')';
-        }
+      /* ── "Send another request" reset ── */
+      document.addEventListener('click', function(e) {
+        if (!e.target || e.target.id !== 'cfAgainBtn') return;
+        var suc = document.getElementById('cfSuccess');
+        if (suc) suc.classList.remove('show');
+        form.reset();
+        if (window._cfIti) window._cfIti.setNumber('');
+        ALL_FIELDS.forEach(function(id) {
+          var el = document.getElementById(id);
+          if (el) el.classList.remove('v-ok', 'v-err');
+          var errEl = document.getElementById('cfe-' + id.replace('cf-', ''));
+          if (errEl) errEl.classList.remove('show', 'is-err', 'is-ok');
+        });
+        var fd = document.getElementById('cf-file-display');
+        if (fd) fd.value = '';
+        var fe = document.getElementById('cfe-file');
+        if (fe) fe.classList.remove('show', 'is-err', 'is-ok');
+        btn.disabled = false;
+        btn.classList.remove('loading');
+        document.getElementById('cfBtnText').textContent = 'Send Message →';
+        form.style.display = '';
       });
+
     })();
   </script>
 
@@ -1908,21 +2012,31 @@
                 </button>
                 <input type="file" id="cf-file-hidden" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg,.zip,.pptx,.xlsx" style="display:none">
               </div>
+              <span class="cf-err" id="cfe-file"></span>
             </div>
           </div>
 
           <div class="cf-submit-row">
             <button type="submit" class="cf-submit" id="cfSubmitBtn">
-              <span id="cfBtnText">Send Message →</span>
+              <div class="cf-btn-inner">
+                <div class="cf-spinner"></div>
+                <span id="cfBtnText">Send Message →</span>
+              </div>
             </button>
             <p class="cf-privacy">🔒 Your info is safe. We never share or spam. <a href="#">Privacy Policy</a></p>
           </div>
         </form>
 
         <div class="cf-success" id="cfSuccess">
-          <div class="cf-success-icon">✓</div>
-          <h3>Message Received!</h3>
-          <p>Your details have been sent to our team via <strong style="color:#86efac;">email</strong> and <strong style="color:#86efac;">WhatsApp</strong>. We'll get back to you within one business day.</p>
+          <div class="cf-success-ring">
+            <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle class="ring-circle" cx="26" cy="26" r="25" stroke="#34c759" stroke-width="2"/>
+              <path class="ring-check" d="M14 27 l8 8 l16-16" stroke="#34c759" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3 class="cf-success-title">Your request has been submitted successfully!</h3>
+          <p class="cf-success-msg">We'll get back to you within <strong>24 hours</strong>.<br>Check your WhatsApp for a copy of your request.</p>
+          <button class="cf-again-btn" id="cfAgainBtn">Send another request</button>
         </div>
       </div>
 
@@ -2448,15 +2562,13 @@
   });
   window._cfIti = iti;
 
-  /* Validate on blur/input using iti */
   phoneEl.addEventListener('blur', function(){
     if (!phoneEl.value) return;
     var ok = iti.isValidNumber();
-    phoneEl.classList.toggle('v-ok', ok);
-    phoneEl.classList.toggle('v-err', !ok);
-    var err = document.getElementById('cfe-phone');
-    if (err) err.textContent = ok ? '✓ Valid number.' : '⚠ Enter a valid phone number.';
-    if (err) err.style.color = ok ? '#86efac' : '#f87171';
+    if (window.cfSetField) {
+      window.cfSetField('cf-phone', ok ? 'ok' : 'err',
+        ok ? 'Valid number.' : 'Enter a valid number for the selected country.');
+    }
   });
 })();
 </script>

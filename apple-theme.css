@@ -583,6 +583,53 @@ h1 .highlight {
 .cf-select option { background: #fff !important; color: var(--ap-dark) !important; }
 .cf-err { color: #ff3b30 !important; }
 
+/* Phone field iti — light-theme override */
+.iti__tel-input {
+  background: var(--ap-off-white) !important;
+  border: 1.5px solid rgba(0,0,0,0.1) !important;
+  color: var(--ap-dark) !important;
+  font-family: var(--ap-font) !important;
+}
+.iti__tel-input::placeholder { color: rgba(110,110,115,0.55) !important; }
+.iti__tel-input:focus {
+  border-color: var(--ap-blue) !important;
+  background: #fff !important;
+  box-shadow: 0 0 0 3px rgba(0,113,227,0.15) !important;
+  outline: none !important;
+}
+.iti__tel-input.v-ok {
+  border-color: #34c759 !important;
+  background: rgba(52,199,89,0.04) !important;
+  box-shadow: none !important;
+}
+.iti__tel-input.v-err {
+  border-color: #ff3b30 !important;
+  background: rgba(255,59,48,0.04) !important;
+  box-shadow: none !important;
+}
+.iti__selected-flag {
+  background: var(--ap-off-white) !important;
+  border-right: 1.5px solid rgba(0,0,0,0.1) !important;
+  border-radius: 10px 0 0 10px !important;
+}
+.iti__selected-flag:hover,
+.iti__selected-flag:focus { background: rgba(0,0,0,0.04) !important; }
+.iti__selected-dial-code { color: var(--ap-dark) !important; font-size: 0.85rem !important; }
+.iti__arrow { border-top-color: rgba(0,0,0,0.45) !important; }
+.iti__arrow--up { border-bottom-color: rgba(0,0,0,0.45) !important; }
+.iti__country-list {
+  background: #fff !important;
+  border: 1px solid rgba(0,0,0,0.12) !important;
+  border-radius: 10px !important;
+  color: var(--ap-dark) !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12) !important;
+}
+.iti__country { padding: 8px 14px !important; }
+.iti__country:hover, .iti__country--highlight { background: rgba(0,113,227,0.06) !important; }
+.iti__country-name { color: var(--ap-dark) !important; font-size: 0.85rem !important; }
+.iti__dial-code { color: var(--ap-gray) !important; font-size: 0.82rem !important; }
+.iti__divider { border-bottom-color: rgba(0,0,0,0.08) !important; }
+
 .cf-submit {
   background: var(--ap-blue) !important;
   border-radius: 980px !important;
