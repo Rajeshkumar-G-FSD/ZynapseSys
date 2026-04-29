@@ -885,5 +885,7 @@ footer {
   .stt-line { height: 36px !important; }
 }
 @media (max-width: 600px) {
-  .scroll-top-btn { display: none !important; }
+  .scroll-top-btn { left: 6px !important; padding: 8px 4px !important; }
+  .stt-label { font-size: 9px !important; }
+  .stt-line { height: 28px !important; }
 }
