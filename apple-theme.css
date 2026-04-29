@@ -410,7 +410,7 @@ h1 .highlight {
   background: var(--ap-off-white) !important;
   max-width: none !important;
   margin: 0 !important;
-  padding: 120px max(48px, calc((100vw - 1200px) / 2)) !important;
+  padding: 100px max(48px, calc((100vw - 1200px) / 2)) !important;
 }
 .contact-section::before,
 .contact-section::after { display: none !important; }
@@ -418,6 +418,24 @@ h1 .highlight {
 .contact-inner {
   max-width: 1200px !important;
   margin: 0 auto !important;
+  align-items: stretch !important;   /* both columns same height */
+  gap: 56px !important;
+}
+
+/* Left panel fills height with maps growing to fill leftover space */
+.contact-left {
+  display: flex !important;
+  flex-direction: column !important;
+}
+.contact-info-list {
+  margin-bottom: 16px !important;
+}
+
+/* Form card stretches full column height */
+.contact-form-card {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
 }
 
 .contact-eyebrow { color: var(--ap-blue) !important; }
@@ -445,8 +463,46 @@ h1 .highlight {
 }
 
 .ci-icon { background: var(--ap-blue-light) !important; border: none !important; }
-.ci-label { color: var(--ap-gray) !important; }
-.ci-value { color: var(--ap-dark) !important; font-weight: 500 !important; }
+.ci-label { color: var(--ap-gray) !important; font-size: 0.75rem !important; }
+.ci-value { color: var(--ap-dark) !important; font-weight: 500 !important; font-size: 0.88rem !important; line-height: 1.5 !important; }
+
+/* Office maps — grow to fill remaining left-column space */
+.offices-map-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 12px !important;
+  margin: 0 0 16px !important;
+  flex: 1 !important;            /* expand inside flex-column contact-left */
+  min-height: 200px !important;
+}
+.office-map-card {
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  border: 1px solid var(--ap-border) !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+.office-map-label {
+  font-size: 0.72rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.05em !important;
+  color: var(--ap-gray) !important;
+  padding: 8px 12px !important;
+  background: #fff !important;
+  border-bottom: 1px solid var(--ap-border) !important;
+  flex-shrink: 0 !important;
+}
+.office-map-frame {
+  width: 100% !important;
+  flex: 1 !important;            /* iframe fills card height */
+  min-height: 180px !important;
+  border: none !important;
+  display: block !important;
+}
+@media (max-width: 900px) {
+  .offices-map-grid { grid-template-columns: 1fr !important; }
+  .office-map-frame { min-height: 160px !important; height: 160px !important; flex: none !important; }
+}
 
 .response-badge {
   background: rgba(52,199,89,0.08) !important;
@@ -475,6 +531,27 @@ h1 .highlight {
 
 .cf-label { color: var(--ap-dark) !important; font-weight: 500 !important; letter-spacing: 0 !important; }
 .cf-label .req { color: var(--ap-blue) !important; }
+.cf-optional { color: var(--ap-light-gray) !important; font-size: 0.72rem !important; font-weight: 400 !important; }
+
+/* File upload — light theme override */
+.cf-file-wrap { display: flex !important; gap: 10px !important; align-items: stretch !important; }
+.cf-file-display { flex: 1 !important; cursor: default !important; color: var(--ap-gray) !important; }
+.cf-file-btn {
+  flex-shrink: 0 !important;
+  padding: 0 20px !important;
+  border-radius: 10px !important;
+  background: var(--ap-blue-light) !important;
+  border: 1.5px solid rgba(0,113,227,0.25) !important;
+  color: var(--ap-blue) !important;
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: background 0.2s !important;
+  white-space: nowrap !important;
+  font-family: var(--ap-font) !important;
+}
+.cf-file-btn:hover { background: rgba(0,113,227,0.14) !important; border-color: rgba(0,113,227,0.45) !important; }
+.cf-file-hint { font-size: 0.7rem !important; color: var(--ap-light-gray) !important; margin-top: 2px !important; }
 
 .cf-input,
 .cf-select,
