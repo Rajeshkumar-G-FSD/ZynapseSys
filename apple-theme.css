@@ -1,5 +1,5 @@
 /*
- * apple-theme.css — Zynapse Systems
+ * apple-theme.css — DataZync
  * Apple-level design override: fonts, colors, layout, components
  * Linked after inline <style> on all pages so these rules take precedence
  */
@@ -471,6 +471,7 @@ h1 .highlight {
   letter-spacing: -0.03em !important;
 }
 .form-subtitle { color: var(--ap-gray) !important; font-weight: 400 !important; }
+.form-email-note { font-size: 0.82rem !important; color: var(--ap-light-gray) !important; margin-top: 6px !important; margin-bottom: 4px !important; }
 
 .cf-label { color: var(--ap-dark) !important; font-weight: 500 !important; letter-spacing: 0 !important; }
 .cf-label .req { color: var(--ap-blue) !important; }
@@ -661,4 +662,104 @@ footer {
   .services-section { padding: 72px 20px !important; }
   .contact-section { padding: 72px 20px !important; }
   h1 { font-size: clamp(2.4rem, 8vw, 3.2rem) !important; }
+}
+
+/* ═══════════════════════════════════════════════
+   SCROLL TO TOP — left-side vertical widget
+═══════════════════════════════════════════════ */
+.scroll-top-btn {
+  position: fixed !important;
+  left: 20px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 10px !important;
+  cursor: pointer !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transition: opacity 0.5s ease, visibility 0.5s ease !important;
+  z-index: 900 !important;
+  background: none !important;
+  border: none !important;
+  padding: 10px 6px !important;
+  text-decoration: none !important;
+}
+.scroll-top-btn.stt-visible {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Vertical label */
+.stt-label {
+  writing-mode: vertical-rl !important;
+  text-orientation: mixed !important;
+  transform: rotate(180deg) !important;
+  font-family: var(--ap-font) !important;
+  font-size: 10px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.14em !important;
+  color: var(--ap-light-gray) !important;
+  text-transform: uppercase !important;
+  transition: color 0.3s ease !important;
+  white-space: nowrap !important;
+}
+.scroll-top-btn:hover .stt-label {
+  color: var(--ap-blue) !important;
+}
+
+/* Animated vertical line */
+.stt-line {
+  position: relative !important;
+  width: 1px !important;
+  height: 52px !important;
+  background: rgba(110,110,115,0.35) !important;
+  overflow: hidden !important;
+  border-radius: 1px !important;
+  transition: background 0.3s ease !important;
+}
+.stt-line::after {
+  content: '' !important;
+  position: absolute !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 40% !important;
+  background: linear-gradient(to bottom, transparent, var(--ap-blue), transparent) !important;
+  animation: stt-slide 1.8s ease-in-out infinite !important;
+  opacity: 0.7 !important;
+}
+.scroll-top-btn:hover .stt-line {
+  background: rgba(0,113,227,0.25) !important;
+}
+.scroll-top-btn:hover .stt-line::after {
+  animation-duration: 0.9s !important;
+  opacity: 1 !important;
+}
+
+@keyframes stt-slide {
+  0%   { top: 120%; }
+  100% { top: -40%; }
+}
+
+/* Dot at bottom of line */
+.stt-dot {
+  width: 5px !important;
+  height: 5px !important;
+  border-radius: 50% !important;
+  background: var(--ap-light-gray) !important;
+  transition: background 0.3s ease, transform 0.3s ease !important;
+  flex-shrink: 0 !important;
+}
+.scroll-top-btn:hover .stt-dot {
+  background: var(--ap-blue) !important;
+  transform: scale(1.4) !important;
+}
+
+@media (max-width: 900px) {
+  .scroll-top-btn { left: 10px !important; }
+  .stt-line { height: 36px !important; }
+}
+@media (max-width: 600px) {
+  .scroll-top-btn { display: none !important; }
 }

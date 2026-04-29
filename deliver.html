@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <link rel="icon" type="image/png" href="https://i.postimg.cc/1321zY27/datazync-logo-transparant.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Deliver — Zynapse</title>
+  <title>Deliver — DataZync</title>
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -654,7 +654,7 @@
   <!-- ─── NAV ─── -->
   <nav id="mainNav">
     <a href="index.html" class="logo-link">
-      <img src="https://i.postimg.cc/1321zY27/datazync-logo-transparant.png" alt="Zynapse Systems" class="logo-img">
+      <img src="https://i.postimg.cc/1321zY27/datazync-logo-transparant.png" alt="DataZync" class="logo-img">
     </a>
     <ul class="nav-links">
       <li><a href="index.html#services">Services</a></li>
@@ -829,7 +829,7 @@
 
   <!-- ─── FOOTER ─── -->
   <footer class="page-footer">
-    <span class="footer-copy">© 2025 Zynapse Systems. All rights reserved.</span>
+    <span class="footer-copy">© 2025 DataZync. All rights reserved.</span>
     <span class="footer-copy">Smart Thinking. Digital Execution.</span>
   </footer>
 
@@ -907,6 +907,19 @@
       update();
     })();
   </script>
+
+<!-- Scroll to top -->
+<button class="scroll-top-btn" id="sttBtn" aria-label="Scroll to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <span class="stt-label">Scroll to top</span>
+  <div class="stt-line"></div>
+  <div class="stt-dot"></div>
+</button>
+<script>
+(function(){
+  var b=document.getElementById('sttBtn');
+  window.addEventListener('scroll',function(){b.classList.toggle('stt-visible',window.scrollY>300);},{passive:true});
+})();
+</script>
 
 </body>
 </html>
